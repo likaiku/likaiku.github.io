@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+  
+  <title>函数式编程范式 | 林深时见鹿</title>
+  <meta name="author" content="林深" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="高阶函数 可以把函数作为参数传递给另一个函数 可以把函数作为另一个函数的返回结果  函数作为返回值 123456789101112131415161718192021222324252627282930&#x2F;&#x2F; 函数作为返回值function makeFn () &amp;#123;  let msg &#x3D; &amp;#x27;hello function&amp;#x27;;  return function () &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程范式">
+<meta property="og:url" content="https://likaiku.github.io/posts/42f6abb3.html">
+<meta property="og:site_name" content="林深时见鹿">
+<meta property="og:description" content="高阶函数 可以把函数作为参数传递给另一个函数 可以把函数作为另一个函数的返回结果  函数作为返回值 123456789101112131415161718192021222324252627282930&#x2F;&#x2F; 函数作为返回值function makeFn () &amp;#123;  let msg &#x3D; &amp;#x27;hello function&amp;#x27;;  return function () &amp;#12">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-23T14:42:29.000Z">
+<meta property="article:modified_time" content="2023-03-23T14:43:13.007Z">
+<meta property="article:author" content="林深">
+<meta name="twitter:card" content="summary">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" media="all"></script>
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-color-dark.min.css" media="(prefers-color-scheme: dark)"></script>
+    <script src="/js/kr-dark.min.js"></script>
+  
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" media="all"></script>
+  
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></script>
+  <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/aplayer@1.10.1/dist/APlayer.min.css"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="/vendors/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="/vendors/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+  
+  <style>
+    
+    
+  </style>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li>
+                                            
+                                                <a href="/">
+                                            
+                                                
+                                                    <i class="fa fa-home"></i>
+                                                
+                                                首页
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/categories/">
+                                            
+                                                
+                                                    <i class="fa fa-paw"></i>
+                                                
+                                                分类
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/archives/">
+                                            
+                                                
+                                                    <i class="fa fa-file"></i>
+                                                
+                                                档案馆
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">林深时见鹿</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>林深时见鹿</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    
+    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/42f6abb3.html">
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">函数式编程范式</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><time datetime="2023-03-23T14:42:29.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-03-23</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">林深</span>
+                </li>
+                <li>
+                    <i class="fa fa-edit"></i> 
+                    
+                    
+                        ~9.15K
+                    
+                    字
+                </li>
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                <div class="icon"><i class="fa fa-warning"></i></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1679582593007"></time> 前，其中的内容可能需要更新。</p></div>
+            </div>
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><h1 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h1><ul>
+<li>可以把函数作为参数传递给另一个函数</li>
+<li>可以把函数作为另一个函数的返回结果</li>
+</ul>
+<p><strong>函数作为返回值</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数作为返回值</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">makeFn</span> () &#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;hello function&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(msg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fn = <span class="title function_">makeFn</span>();</span><br><span class="line"><span class="title function_">fn</span>();</span><br><span class="line"><span class="title function_">makeFn</span>()();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// once</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">once</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> done = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!done) &#123;</span><br><span class="line">      done = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">return</span> fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> pay = <span class="title function_">once</span>(<span class="keyword">function</span> (<span class="params">money</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(money);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>)</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>)</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="常用的高阶函数"><a href="#常用的高阶函数" class="headerlink" title="常用的高阶函数"></a>常用的高阶函数</h1><h2 id="高阶函数的意义"><a href="#高阶函数的意义" class="headerlink" title="高阶函数的意义"></a>高阶函数的意义</h2><ul>
+<li>抽象可以帮屏蔽细节，只需要关注与我们的目标</li>
+<li>高阶函数是用来抽象通用的问题</li>
+</ul>
+<p><strong>filter</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">filter</span> (array, fn) &#123;</span><br><span class="line">  <span class="keyword">let</span> retult = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">fn</span>(array[i])) &#123;</span><br><span class="line">      retult.<span class="title function_">push</span>(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> retult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>forEach</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">forEach</span> (array, fn) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="title function_">fn</span>(array[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>map</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">map</span> = (<span class="params">array, fn</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> array) &#123;</span><br><span class="line">    result.<span class="title function_">push</span>(<span class="title function_">fn</span>(value));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>every</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断数组中的每一个值满足我们指定的条件</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">every</span> = (<span class="params">array, fn</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> flag = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> val <span class="keyword">of</span> array) &#123;</span><br><span class="line">    flag = <span class="title function_">fn</span>(val);</span><br><span class="line">    <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>some</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断数组中有一个值满足我们指定的条件</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">some</span> = (<span class="params">array, fn</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> flag = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> val <span class="keyword">of</span> array) &#123;</span><br><span class="line">    flag = <span class="title function_">fn</span>(val);</span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> falg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><ul>
+<li>函数和其周围的状态（词法环境）引用捆绑在一起形成闭包</li>
+<li>可以在另一个作用域中调用一个函数的内部函数并访问到该函数的作用域中的成员</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数作为返回值</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyFn</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn = <span class="title class_">MyFn</span>();</span><br><span class="line"><span class="title function_">fn</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// once函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">once</span> (fn) &#123;</span><br><span class="line">  <span class="keyword">let</span> flag = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">      flag = <span class="literal">true</span>;</span><br><span class="line">      fn.<span class="title function_">applay</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> pay = <span class="title function_">once</span>(<span class="params">money</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(money);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>闭包的本质：函数在执行的时候会放到一个执行栈上，当函数执行完毕之后会从执行栈上移除，<code>但是堆上的作用域成员，因为被外部引用不能释放</code>，因此内部函数依然可以访问外部函数的成员。</p>
+<h1 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol>
+<li>纯函数：<code>相同的输入永远会得到相同的输出</code>，而且没有任何可观察的副作用</li>
+<li>纯函数就类似数学中的函数，y&#x3D;f(x);</li>
+<li>数组中的<code>slice</code>和<code>splice</code>，分别是纯函数和不纯的函数<ol>
+<li><code>splice</code>返回数组中指定的部分，不会改变原数组</li>
+<li><code>splice</code>对数组进行操作返回该数组，会改变原数组</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="comment">// slice</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(nums.<span class="title function_">slice</span>(<span class="number">0</span>,<span class="number">4</span>));</span><br><span class="line"><span class="comment">// [1,2,3,4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// splice</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(nums.<span class="title function_">splice</span>(<span class="number">0</span>,<span class="number">2</span>));</span><br><span class="line"><span class="comment">// [1,2,3]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义纯函数</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">n1, n2</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> n1 + n2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">sum</span>(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">sum</span>(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">sum</span>(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>函数式编程不会保留计算结果，所以变量是不可变的（无状态的）</li>
+<li>我们可以把一个函数的执行结果交给另一个函数去处理</li>
+</ol>
+<h2 id="纯函数的优势"><a href="#纯函数的优势" class="headerlink" title="纯函数的优势"></a>纯函数的优势</h2><ul>
+<li><p>可缓存</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟mmeoize实现</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getArea</span>(<span class="params">r</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="property">PI</span> * r * r</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">memoize</span>(<span class="params">f</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> cache = &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> key = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">    cache[key] = cache[key] || f.<span class="title function_">apply</span>(f, <span class="variable language_">arguments</span>)</span><br><span class="line">    <span class="keyword">return</span> cache[key];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可测试</p>
+</li>
+<li><p>并行处理</p>
+<ul>
+<li>在多线程环境下并行操作共享的内存数据很可能会出现意外情况</li>
+<li>纯函数不需要访问共享的内存数据，所以在并行环境下可以任意运行纯函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不是纯函数</span></span><br><span class="line"><span class="keyword">let</span> mini = <span class="number">18</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkAge</span> (age) &#123;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= mini</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkAge</span> (age) &#123;</span><br><span class="line">  <span class="keyword">let</span> mini = <span class="number">18</span>;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= mini;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>副作用让一个函数变得不纯，纯函数是根据相同的输入返回相同的输出，如果函数依赖于外部的状态就无法保证输出相同，就会带来副作用。</p>
+<p>所有的外部交互都有可能带来副作用，副作用也使得方法通用性下降不适合扩展和可重用性，同时副作用也会带来安全隐患，给程序带来不确定性，但是副作用不可能完全禁止，尽可能控制它们在可控范围内发剩。</p>
+<h2 id="3-柯里化"><a href="#3-柯里化" class="headerlink" title="3.柯里化"></a>3.柯里化</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">checkAge</span> (num) &#123;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">18</span>;</span><br><span class="line">  <span class="keyword">return</span> age &gt;= num</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的柯里化</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkAge1</span> (min) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">age</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> age &gt;= min</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> age1 = <span class="title function_">checkAge1</span>(<span class="number">18</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">age1</span>(<span class="number">20</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当一个函数有多个参数的时候先传递一部分参数（这部分参数以后永远不变）</li>
+<li>然后返回一个新的函数接收剩余的参数，返回结果</li>
+</ul>
+<h2 id="4-PointFree"><a href="#4-PointFree" class="headerlink" title="4.PointFree"></a>4.PointFree</h2><p>我们可以把数据处理的过程定义成与数据无关的合成运算，不需要用到代表数据的那个参数，只需要把简单的运算步骤合成到一起，在使用这种模式之前我们需要定义一些辅助的基本运算函数</p>
+<ul>
+<li>不需要指明处理的数据</li>
+<li>只需要合成运算过程</li>
+<li>需要定义一些辅助的基运算函数</li>
+</ul>
+<h2 id="5-Functor-函子"><a href="#5-Functor-函子" class="headerlink" title="5.Functor (函子)"></a>5.Functor (函子)</h2><ul>
+<li>容器：包含值和值得变形关系（这个变形关系就是函数）</li>
+<li>函子：是一个特殊的容器，通过一个普通的对象来实现，该对象具有 map 方法，map方法可以运行一个函数对值进行处理（变形关系）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Container</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span> (value) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_value</span> = value;</span><br><span class="line">  &#125;</span><br><span class="line">  map (fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Container</span>(<span class="title function_">fn</span>(<span class="variable language_">this</span>.<span class="property">_value</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sum = <span class="keyword">new</span> <span class="title class_">Container</span>(<span class="number">5</span>)</span><br><span class="line">.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> item + <span class="number">1</span>)</span><br><span class="line">.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> item * item)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum)</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<ul>
+<li>函数式编程的运算不直接操作值，而是由函子完成</li>
+<li>函子就是一个实现了 <code>map</code> 契约的对象</li>
+<li>我们可以把函子想象成一个盒子，这个盒子里封装了一个值</li>
+<li>想要处理盒子中的值，我们需要给盒子的<code>map</code>方法传递一个处理值得函数（纯函数），由这个函数对值进行处理</li>
+<li>最终<code>map</code>方法返回一个包含新值的盒子（函子）</li>
+</ul>
+<h2 id="5-MayBe-函子"><a href="#5-MayBe-函子" class="headerlink" title="5.MayBe (函子)"></a>5.MayBe (函子)</h2><p>MayBe函子的作用就是可以对外部的空值做处理（控制副作用在允许的范围）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MayBe</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">of</span> (value) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MayBe</span>(value);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">constructor</span> (value) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_value</span> = value;</span><br><span class="line">  &#125;</span><br><span class="line">  map (fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">isNothing</span>() ? <span class="title class_">MayBe</span>.<span class="title function_">of</span>(<span class="literal">null</span>) : <span class="title class_">MayBe</span>.<span class="title function_">of</span>(<span class="title function_">fn</span>(<span class="variable language_">this</span>.<span class="property">_value</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  isNothing () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_value</span> === <span class="literal">null</span> || <span class="variable language_">this</span>.<span class="property">_value</span> === <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> r1 = <span class="title class_">MayBe</span>.<span class="title function_">of</span>(<span class="string">&#x27;hello world!&#x27;</span>)</span><br><span class="line">.<span class="title function_">map</span>(<span class="function"><span class="params">str</span> =&gt;</span> str.<span class="title function_">toUpperCase</span>())</span><br><span class="line"><span class="keyword">let</span> r2 = <span class="title class_">MayBe</span>.<span class="title function_">of</span>(<span class="literal">undefined</span>)</span><br><span class="line">.<span class="title function_">map</span>(<span class="function"><span class="params">str</span> =&gt;</span> str.<span class="title function_">toUpperCase</span>())</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(r1)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(r2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Either-函子"><a href="#6-Either-函子" class="headerlink" title="6.Either (函子)"></a>6.Either (函子)</h2><ul>
+<li>两者中的任何一个，类似于<code>if...else</code>的处理</li>
+<li>异常会让函数变得不纯，<code>Either</code>函子可以用来做异常处理</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Left</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">of</span> (value) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Left</span>(value);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_value</span> = value;</span><br><span class="line">  &#125;</span><br><span class="line">  map (fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Right</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">of</span> (value) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Right</span>(value)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_value</span> = value;</span><br><span class="line">  &#125;</span><br><span class="line">  map (fn) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Right</span>.<span class="title function_">of</span>(<span class="title function_">fn</span>(<span class="variable language_">this</span>.<span class="property">_value</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">parseJson</span> (str) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Right</span>.<span class="title function_">of</span>(<span class="title class_">JSON</span>.<span class="title function_">parse</span>(str));</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Left</span>.<span class="title function_">of</span>(&#123; <span class="attr">error</span>: e.<span class="property">message</span> &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result1 = <span class="title function_">parseJson</span>(<span class="string">&#x27;&#123;name: ls&#125;&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result1); <span class="comment">// Left &#123; _value: &#123; error: &quot;Unexpected token &#x27; in JSON at position 1&quot; &#125; &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result2 = <span class="title function_">parseJson</span>(<span class="string">&#x27;&#123;&quot;name&quot;: &quot;ls&quot;&#125;&#x27;</span>)</span><br><span class="line">  .<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> item.<span class="property">name</span>.<span class="title function_">toUpperCase</span>())</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result2); <span class="comment">// Right</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="7-IO函子"><a href="#7-IO函子" class="headerlink" title="7.IO函子"></a>7.IO函子</h1><ul>
+<li>IO函子中 的<code>_value</code>是一个函数，这里是把函数作为值来处理</li>
+<li>IO函子可以把不纯的动作存储到<code>_value</code>中，延迟执行这个不纯的操作（惰性执行），包装当前的操作纯</li>
+<li>把不纯的操作交给调用者来处理</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fp = <span class="built_in">require</span>(<span class="string">&#x27;lodash/fp&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IO</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">of</span> (x) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">IO</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_value</span> = fn</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  map (fn) &#123;</span><br><span class="line">    <span class="comment">// 把当前的 value 和传入的 fn 组合成一个新的函数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">IO</span>(fp.<span class="title function_">flowRight</span>(fn, <span class="variable language_">this</span>.<span class="property">_value</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span>  p = <span class="variable constant_">IO</span>.<span class="title function_">of</span>(process)</span><br><span class="line">.<span class="title function_">map</span>(<span class="function"><span class="params">p</span> =&gt;</span>  p.<span class="property">execPath</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(p); <span class="comment">// IO &#123; _value: [Function (anonymous)] &#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(p.<span class="title function_">_value</span>()); <span class="comment">// 当前node执行路径</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Task异步执行"><a href="#Task异步执行" class="headerlink" title="Task异步执行"></a>Task异步执行</h2><ul>
+<li>异步任务的实现过于复杂，我们使用<code>folktale</code>中的 <code>Task</code>来掩饰</li>
+<li>folktale 一个标准的函数试变成库</li>
+<li>和lodash、ramda不同的是，没有 提供很多功能函数</li>
+</ul>
+<h1 id="什么是函数式编程"><a href="#什么是函数式编程" class="headerlink" title="什么是函数式编程"></a>什么是函数式编程</h1><p>函数式编程(function Programming, FP)是编程范式之一，我们常听说的变成范式还有<code>面向过程编程</code>、<code>面向对象编程</code>。</p>
+<ul>
+<li>面向对象编程的思维方式：把现实世界中的事物抽象成程序世界中的类和对象，通过封装、继承和多态来演示事物和事件的联系</li>
+<li>函数式编程的思维方式：把现实世界的事物和事物之间的<code>联系</code>抽象到程序世界（对运算过程进行抽象）<ul>
+<li>程序的本质：根据输入通过某中运算获得相应的输出，程序开发过程中会涉及很多有输入和输出的函数</li>
+<li>x -&gt; f(联系、映射)-&gt; y, y&#x3D;f(x)</li>
+<li><code>函数式编程中的函数指的不是程序中的函数（方法）</code>，而是数学中的函数即映射关系，例如：&#96;&#96;&#96;y &#x3D; sin(x)，x和y的关系</li>
+<li><code>相同的输入始终要得到相同的输出</code>（纯函数）</li>
+<li>函数式编程用来描述数据（函数）之间的映射</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非函数式</span></span><br><span class="line"><span class="keyword">let</span> num1 = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> num2 = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> sum = num1 + num2;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数式</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">n1, n2</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> n1 + n2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sum = <span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h2><h2 id="高阶函数-1"><a href="#高阶函数-1" class="headerlink" title="高阶函数"></a>高阶函数</h2><h2 id="闭包-1"><a href="#闭包-1" class="headerlink" title="闭包"></a>闭包</h2><h3 id="函数是一等公民-1"><a href="#函数是一等公民-1" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h3><ul>
+<li>函数可以存储在变量中</li>
+<li>函数可以作为参数</li>
+<li>函数作为返回值</li>
+</ul>
+<p>在<code>javascript</code>中<code>函数就是一个普通的对象</code>（可以通过<code> new function()</code>），我们可以把函数存储到<code>变量</code>或者<code>数组</code>中，它还可以作为另一个函数的参数和返回值，甚至我们可以在程序运行的时候通过<code>new function(`alert(1)`)</code>来构造一个新的函数。</p>
+<h3 id="1-把函数赋值给变量"><a href="#1-把函数赋值给变量" class="headerlink" title="1.把函数赋值给变量"></a>1.把函数赋值给变量</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把函数赋值给变量</span></span><br><span class="line"><span class="keyword">let</span> fn = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">BlogController</span> = &#123;</span><br><span class="line">  index (posts) &#123; <span class="keyword">return</span> <span class="title class_">Views</span>.<span class="title function_">index</span>(posts) &#125;,</span><br><span class="line">  show (posts) &#123; <span class="keyword">return</span> <span class="title class_">Views</span>.<span class="title function_">show</span>(posts) &#125;,</span><br><span class="line">  create (attrs) &#123; <span class="keyword">return</span> <span class="title class_">Db</span>.<span class="title function_">create</span>(attrs) &#125;,</span><br><span class="line">  update (posts, attrs) &#123; <span class="keyword">return</span> <span class="title class_">Db</span>.<span class="title function_">update</span>(posts, attrs) &#125;,</span><br><span class="line">  destroy (post) &#123; <span class="keyword">return</span> <span class="title class_">Db</span>.<span class="title function_">destroy</span>(post) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 优化</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">BlogController</span> = &#123;</span><br><span class="line">  <span class="attr">index</span>: <span class="title class_">Views</span>.<span class="property">index</span>,</span><br><span class="line">  <span class="attr">show</span>: <span class="title class_">Views</span>.<span class="property">show</span>,</span><br><span class="line">  <span class="attr">create</span>: <span class="title class_">Db</span>.<span class="property">create</span>,</span><br><span class="line">  <span class="attr">update</span>: <span class="title class_">Db</span>.<span class="property">update</span>,</span><br><span class="line">  <span class="attr">destroy</span>: <span class="title class_">Db</span>.<span class="property">destroy</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-高阶函数"><a href="#2-高阶函数" class="headerlink" title="2. 高阶函数"></a>2. 高阶函数</h2><ul>
+<li>可以把函数作为参数传递给另一个参数</li>
+<li>可以把函数作为另一个函数的返回结果</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">forEach</span> (array, fn) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="title function_">fn</span>(array[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="title function_">forEach</span>(arr, <span class="keyword">function</span> (<span class="params">item</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(item);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">filter</span> (array, fn) &#123;</span><br><span class="line">  <span class="keyword">let</span> retult = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">fn</span>(array[i])) &#123;</span><br><span class="line">      retult.<span class="title function_">push</span>(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> retult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-1高阶函数-函数作为返回值"><a href="#2-1高阶函数-函数作为返回值" class="headerlink" title="2.1高阶函数-函数作为返回值"></a>2.1高阶函数-函数作为返回值</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">MyFn</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn = <span class="title class_">MyFn</span>();</span><br><span class="line"><span class="title function_">fn</span>();</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line"><span class="title class_">MyFn</span>()();</span><br><span class="line"></span><br><span class="line"><span class="comment">// once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">once</span> (fn) &#123;</span><br><span class="line">  <span class="keyword">let</span> flag = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">      flag = <span class="literal">true</span>;</span><br><span class="line">      fn.<span class="title function_">applay</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> pay = <span class="title function_">once</span>(<span class="params">money</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(money);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>);</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>);</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>);</span><br><span class="line"><span class="title function_">pay</span>(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 只执行一次</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2高阶函数的意义"><a href="#2-2高阶函数的意义" class="headerlink" title="2.2高阶函数的意义"></a>2.2高阶函数的意义</h2><p><strong>意义：</strong></p>
+<ul>
+<li>抽象可以帮我们屏蔽细节，只需要关注我们的目标</li>
+<li>高阶函数是用来抽象通用的问题</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 面向过程的方式</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 面向过程</span></span><br><span class="line"><span class="comment">// 使用之前封装的 forEach  filter</span></span><br></pre></td></tr></table></figure>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <h5 itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "https://likaiku.github.io/posts/42f6abb3.html",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "https://likaiku.github.io/posts/42f6abb3.html";
+            const title         = "「函数式编程范式」";
+            const excerpt       = `高阶函数
+可以把函数作为参数传递给另一个函数
+可以把函数作为另一个函数的返回结果
+
+函数作为返回值
+123456789101112131415161718192021222324252627282930// 函数作为返回值functi...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    
+                </div>
+                <div class="pull-date">
+                    <time datetime="2023-03-23T14:43:13.007Z" itemprop="dateModified">最后编辑：2023-03-23</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" eggConfig" href="/posts/6268065.html">&lt; 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" http" href="/posts/97780db2.html">下一篇 &gt;</a>
+            </div>
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">不积跬步无以至千里</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                16
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                9
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/html-css/">html&css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js%E5%9F%BA%E7%A1%80/">js基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/">react项目配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E7%94%A8/">通用</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a><span class="category-list-count">4</span></li></ul>
+  </aside>
+
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/849a3ae4.html"><i class="fa  fa-book"></i> vscode中settings配置</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/8ae780ab.html"><i class="fa  fa-book"></i> react常用hooks</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/b172fb3f.html"><i class="fa  fa-book"></i> react基础</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/47cf154e.html"><i class="fa  fa-book"></i> H5常见机型适配</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/6085e14f.html"><i class="fa  fa-book"></i> 工具函数</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        <!-- Keep for compatibility -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- New links -->
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2023 林深时见鹿 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by 林深.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="snow-switch">
+                        <span class="fa fa-snowflake-o"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="/vendors/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+<script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async src="/js/snow.min.js"></script>
+    </div>
+
+
+    <script async src="/js/candy.min.js"></script>
+
+
+
+    <script defer src="/vendors/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="/vendors/meting@2.0.1/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="3204190542"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+  
+  <title>工具函数 | 林深时见鹿</title>
+  <meta name="author" content="林深" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="localStorage的已使用空间在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。所以在测试代码中，你把a修改啊，不会影响存储的数量。 但是键的长度，会影响存储的数量。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具函数">
+<meta property="og:url" content="https://likaiku.github.io/posts/6085e14f.html">
+<meta property="og:site_name" content="林深时见鹿">
+<meta property="og:description" content="localStorage的已使用空间在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。所以在测试代码中，你把a修改啊，不会影响存储的数量。 但是键的长度，会影响存储的数量。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-23T14:50:18.000Z">
+<meta property="article:modified_time" content="2023-03-23T14:50:46.408Z">
+<meta property="article:author" content="林深">
+<meta name="twitter:card" content="summary">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" media="all"></script>
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-color-dark.min.css" media="(prefers-color-scheme: dark)"></script>
+    <script src="/js/kr-dark.min.js"></script>
+  
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" media="all"></script>
+  
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></script>
+  <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/aplayer@1.10.1/dist/APlayer.min.css"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="/vendors/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="/vendors/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+  
+  <style>
+    
+    
+  </style>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li>
+                                            
+                                                <a href="/">
+                                            
+                                                
+                                                    <i class="fa fa-home"></i>
+                                                
+                                                首页
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/categories/">
+                                            
+                                                
+                                                    <i class="fa fa-paw"></i>
+                                                
+                                                分类
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/archives/">
+                                            
+                                                
+                                                    <i class="fa fa-file"></i>
+                                                
+                                                档案馆
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">林深时见鹿</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>林深时见鹿</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    
+    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/6085e14f.html">
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">工具函数</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><time datetime="2023-03-23T14:50:18.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-03-23</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">林深</span>
+                </li>
+                <li>
+                    <i class="fa fa-edit"></i> 
+                    
+                    
+                        ~12.10K
+                    
+                    字
+                </li>
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                <div class="icon"><i class="fa fa-warning"></i></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1679583046408"></time> 前，其中的内容可能需要更新。</p></div>
+            </div>
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><h1 id="localStorage的已使用空间"><a href="#localStorage的已使用空间" class="headerlink" title="localStorage的已使用空间"></a>localStorage的已使用空间</h1><p>在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。<br>所以在测试代码中，你把<code>a</code>修改<code>啊</code>，不会影响存储的数量。 但是键的长度，会影响存储的数量。</p>
+<span id="more"></span>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getLSUsedSpace</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">localStorage</span>).<span class="title function_">reduce</span>(<span class="function">(<span class="params">total, curKey</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">localStorage</span>.<span class="title function_">hasOwnProperty</span>(curKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> total;</span><br><span class="line">        &#125;</span><br><span class="line">        total += <span class="variable language_">localStorage</span>[curKey].<span class="property">length</span> + curKey.<span class="property">length</span>;</span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">clear</span>();</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="property">a</span> = <span class="string">&quot;啊&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getLSUsedSpace</span>()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h1 id="带图带事件的桌面通知"><a href="#带图带事件的桌面通知" class="headerlink" title="带图带事件的桌面通知"></a>带图带事件的桌面通知</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">doNotify</span>(<span class="params">title, options = &#123;&#125;, events = &#123;&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> notification = <span class="keyword">new</span> <span class="title class_">Notification</span>(title, options);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> event <span class="keyword">in</span> events) &#123;</span><br><span class="line">        notification[event] = events[event];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">notify</span>(<span class="params">title, options = &#123;&#125;, events = &#123;&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!(<span class="string">&quot;Notification&quot;</span> <span class="keyword">in</span> <span class="variable language_">window</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;This browser does not support desktop notification&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Notification</span>.<span class="property">permission</span> === <span class="string">&quot;granted&quot;</span>) &#123;</span><br><span class="line">        <span class="title function_">doNotify</span>(title, options, events);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Notification</span>.<span class="property">permission</span> !== <span class="string">&quot;denied&quot;</span>) &#123;</span><br><span class="line">        <span class="title class_">Notification</span>.<span class="title function_">requestPermission</span>().<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">permission</span>) &#123;           </span><br><span class="line">            <span class="keyword">if</span> (permission === <span class="string">&quot;granted&quot;</span>) &#123;</span><br><span class="line">                <span class="title function_">doNotify</span>(title, options, events);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">notify</span>(<span class="string">&quot;中奖提示&quot;</span>, &#123;</span><br><span class="line">       <span class="attr">icon</span>: <span class="string">&quot;https://sf1-ttcdn-tos.pstatp.com/img/user-avatar/f1a9f122e925aeef5e4534ff7f706729~300x300.image&quot;</span>,</span><br><span class="line">       <span class="attr">body</span>: <span class="string">&quot;恭喜你，掘金签到一等奖&quot;</span>,</span><br><span class="line">       <span class="attr">tag</span>: <span class="string">&quot;prize&quot;</span></span><br><span class="line">   &#125;, &#123;</span><br><span class="line">       <span class="title function_">onclick</span>(<span class="params">ev</span>) &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(ev);</span><br><span class="line">           ev.<span class="property">target</span>.<span class="title function_">close</span>();</span><br><span class="line">           <span class="variable language_">window</span>.<span class="title function_">focus</span>();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="原生30行代码实现视频截图"><a href="#原生30行代码实现视频截图" class="headerlink" title="原生30行代码实现视频截图"></a>原生30行代码实现视频截图</h1><p>基本原理就是把视频画到Canvas里面，然后调用toDataURL或者toBlob，再利用a标签模拟点击，download属性指定名字。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">captureVideo</span>(<span class="params">videoEl</span>) &#123;</span><br><span class="line">       <span class="keyword">let</span> canvasEl;</span><br><span class="line">       <span class="keyword">let</span> dataUrl;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">const</span> cps = <span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(videoEl);</span><br><span class="line">           <span class="keyword">const</span> width = +cps.<span class="title function_">getPropertyValue</span>(<span class="string">&quot;width&quot;</span>).<span class="title function_">replace</span>(<span class="string">&quot;px&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">const</span> height = +cps.<span class="title function_">getPropertyValue</span>(<span class="string">&quot;height&quot;</span>).<span class="title function_">replace</span>(<span class="string">&quot;px&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">           canvasEl = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line">           canvasEl.<span class="property">style</span>.<span class="property">cssText</span> = <span class="string">`position:fixed;left:-9999px`</span>;</span><br><span class="line">           canvasEl.<span class="property">height</span> = height;</span><br><span class="line">           canvasEl.<span class="property">width</span> = width;</span><br><span class="line"></span><br><span class="line">           <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(canvasEl);</span><br><span class="line">           </span><br><span class="line">           <span class="keyword">const</span> ctx = canvasEl.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">           ctx.<span class="title function_">drawImage</span>(videoEl, <span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">           <span class="comment">// const image = canvas.toDataURL(&quot;image/png&quot;);</span></span><br><span class="line">           dataUrl = canvasEl.<span class="title function_">toDataURL</span>();</span><br><span class="line"></span><br><span class="line">           <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(canvasEl);</span><br><span class="line">           canvasEl = <span class="literal">null</span>;</span><br><span class="line">           <span class="keyword">return</span> dataUrl;</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           <span class="keyword">if</span> (canvasEl) &#123;</span><br><span class="line">               <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(canvasEl);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (dataUrl) &#123;</span><br><span class="line">               <span class="keyword">return</span> dataUrl;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong><br>注意添加<code>crossorigin=&quot;anonymous&quot;</code>，不然转为图片会失败。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  &lt;video id=<span class="string">&quot;videoEL&quot;</span> controls autoplay crossorigin=<span class="string">&quot;anonymous&quot;</span></span><br><span class="line">        src=<span class="string">&quot;https://api.dogecloud.com/player/get.mp4?vcode=5ac682e6f8231991&amp;userId=17&amp;ext=.mp4&quot;</span> width=<span class="string">&quot;500&quot;</span>&gt;&lt;/video&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">download</span>(<span class="params">url</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> aEl = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    aEl.<span class="property">href</span> = url;</span><br><span class="line">    aEl.<span class="property">download</span> = <span class="string">&quot;视频.png&quot;</span>;</span><br><span class="line">    aEl.<span class="title function_">click</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">doCaptureVideo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="title function_">captureVideo</span>(videoEL);</span><br><span class="line">    <span class="title function_">download</span>(url);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">doCaptureVideo</span>()</span><br></pre></td></tr></table></figure>
+<h1 id="基于URLSearchParams或URL获取queryString的值"><a href="#基于URLSearchParams或URL获取queryString的值" class="headerlink" title="基于URLSearchParams或URL获取queryString的值"></a>基于UR<code>LSearchParams</code>或<code>URL</code>获取queryString的值</h1><p>常用的方式是使用正则或者<code>split</code>方法，其实不然，<code>URLSearchParams</code>和<code>URL</code>都能很好的实现功能。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> urlSP = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(location.<span class="property">search</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getQueryString</span>(<span class="params">key</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> urlSP.<span class="title function_">get</span>(key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> urlObj = <span class="keyword">new</span> <span class="title function_">URL</span>(location.<span class="property">href</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getQueryString</span>(<span class="params">key</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> urlObj.<span class="property">searchParams</span>.<span class="title function_">get</span>(key)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">测试地址： /index.<span class="property">html</span>?pid=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> log = <span class="variable language_">console</span>.<span class="property">log</span>;</span><br><span class="line">getQueryString</span><br><span class="line"></span><br><span class="line"><span class="title function_">log</span>(<span class="string">&quot;pid&quot;</span>, <span class="title function_">getQueryString</span>(<span class="string">&quot;pid&quot;</span>));  <span class="comment">// pid 10</span></span><br><span class="line"><span class="title function_">log</span>(<span class="string">&quot;cid&quot;</span>, <span class="title function_">getQueryString</span>(<span class="string">&quot;cid&quot;</span>));  <span class="comment">// cid null</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="基于atob和btoa的base64编码和解码"><a href="#基于atob和btoa的base64编码和解码" class="headerlink" title="基于atob和btoa的base64编码和解码"></a>基于<code>atob</code>和<code>btoa</code>的base64编码和解码</h1><p>浏览器内置了base64编码和解码的能力，第三方库，不需要的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">utf8_to_b64</span>(<span class="params"> str </span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">window</span>.<span class="title function_">btoa</span>(<span class="built_in">unescape</span>(<span class="built_in">encodeURIComponent</span>( str )));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b64_to_utf8</span>(<span class="params"> str </span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(<span class="built_in">escape</span>(<span class="variable language_">window</span>.<span class="title function_">atob</span>( str )));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">utf8_to_b64</span>(<span class="string">&#x27;✓ à la mode&#x27;</span>); <span class="comment">// &quot;4pyTIMOgIGxhIG1vZGU=&quot;</span></span><br><span class="line"><span class="title function_">b64_to_utf8</span>(<span class="string">&#x27;4pyTIMOgIGxhIG1vZGU=&#x27;</span>); <span class="comment">// &quot;✓ à la mode&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="非正则替换的html代码encode和decode"><a href="#非正则替换的html代码encode和decode" class="headerlink" title="非正则替换的html代码encode和decode"></a>非正则替换的html代码encode和decode</h1><p>常规的方式是使用正则替换，这里是另外一种思路。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">htmlencode</span>(<span class="params">s</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">    div.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(s));</span><br><span class="line">    <span class="keyword">var</span> result = div.<span class="property">innerHTML</span>;</span><br><span class="line">    div = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">htmldecode</span>(<span class="params">s</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">    div.<span class="property">innerHTML</span> = s;</span><br><span class="line">    <span class="keyword">var</span> result = div.<span class="property">innerText</span> || div.<span class="property">textContent</span>;</span><br><span class="line">    div = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">htmlencode</span>(<span class="string">&quot;&lt;div&gt;3&gt;5 &amp; 666&lt;/div&gt;&quot;</span>); <span class="comment">// &amp;lt;div&amp;gt;3&amp;gt;5 &amp;amp; 666&amp;lt;/div&amp;gt;</span></span><br><span class="line"><span class="title function_">htmldecode</span>(<span class="string">&quot;&amp;lt;div&amp;gt;3&amp;gt;5 &amp;amp; 666&amp;lt;/div&amp;gt;&quot;</span>) <span class="comment">// &lt;div&gt;3&gt;5 &amp; 666&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="相对地址转换为绝对地址"><a href="#相对地址转换为绝对地址" class="headerlink" title="相对地址转换为绝对地址"></a>相对地址转换为绝对地址</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">realativeToAbs</span>(<span class="params">href</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> aEl = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    aEl.<span class="property">href</span> = href;    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result = aEl.<span class="property">href</span>;</span><br><span class="line">    aEl = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;realativeToAbs&quot;</span>, <span class="title function_">realativeToAbs</span>(<span class="string">&quot;../a/b/b/index.html&quot;</span>));</span><br><span class="line"><span class="comment">// realativeToAbs http://127.0.0.1:5500/a/b/b/index.html</span></span><br></pre></td></tr></table></figure>
+<h1 id="基于URL或者Crypto-getRandomValues生成UUID"><a href="#基于URL或者Crypto-getRandomValues生成UUID" class="headerlink" title="基于URL或者Crypto.getRandomValues生成UUID"></a>基于<code>URL</code>或者<code>Crypto.getRandomValues</code>生成UUID</h1><p>URL.createObjectURL 产生的地址为 <code>blob:https://developer.mozilla.org/cb48b940-c625-400a-a393-176c3635020b</code>, 其后部分就是一个UUID</p>
+<ol>
+<li>方法一<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">genUUID</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="variable constant_">URL</span>.<span class="title function_">createObjectURL</span>(<span class="keyword">new</span> <span class="title class_">Blob</span>([]));</span><br><span class="line">    <span class="comment">// const uuid = url.split(&quot;/&quot;).pop();</span></span><br><span class="line">    <span class="keyword">const</span> uuid = url.<span class="title function_">substring</span>(url.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;/&#x27;</span>)+ <span class="number">1</span>);</span><br><span class="line">    <span class="variable constant_">URL</span>.<span class="title function_">revokeObjectURL</span>(url);</span><br><span class="line">    <span class="keyword">return</span> uuid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">genUUID</span>() <span class="comment">// cd205467-0120-47b0-9444-894736d873c7</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>方法二<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">uuidv4</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> ([<span class="number">1e7</span>]+-<span class="number">1e3</span>+-<span class="number">4e3</span>+-<span class="number">8e3</span>+-<span class="number">1e11</span>).<span class="title function_">replace</span>(<span class="regexp">/[018]/g</span>, <span class="function"><span class="params">c</span> =&gt;</span></span><br><span class="line">    (c ^ crypto.<span class="title function_">getRandomValues</span>(<span class="keyword">new</span> <span class="title class_">Uint8Array</span>(<span class="number">1</span>))[<span class="number">0</span>] &amp; <span class="number">15</span> &gt;&gt; c / <span class="number">4</span>).<span class="title function_">toString</span>(<span class="number">16</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">uuidv4</span>() <span class="comment">// 38aa1602-ba78-4368-9235-d8703cdb6037</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="基于Array-from的序列生成器"><a href="#基于Array-from的序列生成器" class="headerlink" title="基于Array.from的序列生成器"></a>基于<code>Array.from</code>的序列生成器</h1><p>造有序数据，无序数据，等等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">range</span> = (<span class="params">start, stop, step</span>) =&gt; <span class="title class_">Array</span>.<span class="title function_">from</span>(</span><br><span class="line">    &#123; <span class="attr">length</span>: (stop - start) / step + <span class="number">1</span>&#125;, </span><br><span class="line">    <span class="function">(<span class="params">_, i</span>) =&gt;</span> start + (i * step)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">range</span>(<span class="number">0</span>, <span class="number">4</span>, <span class="number">1</span>); <span class="comment">// [0, 1, 2, 3, 4]</span></span><br><span class="line"><span class="title function_">range</span>(<span class="number">0</span>, <span class="number">9</span>, <span class="number">3</span>); <span class="comment">// [0, 3, 6, 9]</span></span><br><span class="line"><span class="title function_">range</span>(<span class="number">0</span>, <span class="number">8</span>, <span class="number">2.5</span>) <span class="comment">// [0, 2.5, 5, 7.5]</span></span><br></pre></td></tr></table></figure>
+<h1 id="基于sendBeacon的安全的数据上报"><a href="#基于sendBeacon的安全的数据上报" class="headerlink" title="基于sendBeacon的安全的数据上报"></a>基于<code>sendBeacon</code>的安全的数据上报</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">report</span>(<span class="params">url, data</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> navigator.<span class="property">sendBeacon</span> !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;sendBeacon不被支持&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    navigator.<span class="title function_">sendBeacon</span>(url, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;unload&#x27;</span>, logData, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">logData</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="title function_">report</span>(<span class="string">&quot;/log&quot;</span>, <span class="string">&quot;被卸载了&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="基于toLocaleString千分位"><a href="#基于toLocaleString千分位" class="headerlink" title="基于toLocaleString千分位"></a>基于<code>toLocaleString</code>千分位</h1><p>正则？ 遍历？ 不需要的。内置函数就解决。<br>当然，如果是超大的数，可能是会有问题的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatMoney</span>(<span class="params">num</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> (+num).<span class="title function_">toLocaleString</span>(<span class="string">&quot;en-US&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">formatMoney</span>(<span class="number">123456789</span>));  <span class="comment">// 123,456,789</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">formatMoney</span>(<span class="number">6781</span>)) <span class="comment">// 6,781</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">formatMoney</span>(<span class="number">5</span>)) <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 超大的数</span></span><br><span class="line"><span class="title function_">formatMoney</span>(<span class="number">19999999933333333333333</span>) <span class="comment">// 19,999,999,933,333,333,000,000</span></span><br></pre></td></tr></table></figure>
+<h1 id="Promise顺序执行"><a href="#Promise顺序执行" class="headerlink" title="Promise顺序执行"></a>Promise顺序执行</h1><p>让Promise顺序的执行，并支持初始化参数和结果作为参数传递。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">runPromises</span>(<span class="params">promiseCreators, initData</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> promiseCreators</span><br><span class="line">        .<span class="title function_">reduce</span>(<span class="function">(<span class="params">promise, next</span>) =&gt;</span> promise</span><br><span class="line">                .<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> <span class="title function_">next</span>(data))</span><br><span class="line">            , <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(initData));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise1 = <span class="keyword">function</span> (<span class="params">data = <span class="number">0</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(data + <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> promise2 = <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(data -<span class="number">500</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">runPromises</span>([promise1, promise2], <span class="number">1</span>).<span class="title function_">then</span>(<span class="function"><span class="params">res</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(res));</span><br></pre></td></tr></table></figure>
+<h1 id="延时执行delay"><a href="#延时执行delay" class="headerlink" title="延时执行delay"></a>延时执行delay</h1><p>延时执行某函数，且只会执行一次。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">delay</span>(<span class="params">fn = () =&gt; &#123; &#125;, delay = <span class="number">5000</span>, context = <span class="literal">null</span></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> ticket = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> runned = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="title function_">run</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (runned === <span class="literal">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                runned = <span class="literal">true</span>;</span><br><span class="line">                ticket = <span class="built_in">setTimeout</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">const</span> res = <span class="keyword">await</span> fn.<span class="title function_">apply</span>(context, args);</span><br><span class="line">                        <span class="title function_">resolve</span>(res);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">                        <span class="title function_">reject</span>(err)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, delay)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">cancel</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(ticket);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">delay</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;你们好&quot;</span>);</span><br><span class="line">&#125;).<span class="title function_">run</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; run, cancel &#125; = <span class="title function_">delay</span>(<span class="keyword">function</span> (<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;你好：&quot;</span>, name);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">run</span>(<span class="string">&quot;吉他&quot;</span>);</span><br><span class="line"><span class="title function_">run</span>(<span class="string">&quot;吉他&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们好</span></span><br><span class="line"><span class="comment">// 你好： 吉他</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="进度值映射"><a href="#进度值映射" class="headerlink" title="进度值映射"></a>进度值映射</h1><p>进度映射，比较只有 10%的进度，确要显示50%的进度的场景。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">adjustProgress</span>(<span class="params">progress: <span class="built_in">number</span>, mapping: &#123; real: <span class="built_in">number</span>; target: <span class="built_in">number</span> &#125;[] = []</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (progress &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!mapping || mapping.<span class="property">length</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> progress;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 第一个</span></span><br><span class="line">    <span class="keyword">const</span> f = mapping[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">if</span> (progress &lt;= f.<span class="property">real</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> progress * (f.<span class="property">target</span> / f.<span class="property">real</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最后一个</span></span><br><span class="line">    <span class="keyword">const</span> l = mapping[mapping.<span class="property">length</span> - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (progress &gt;= l.<span class="property">target</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> l.<span class="property">target</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> curIndex = mapping.<span class="title function_">findIndex</span>(<span class="function"><span class="params">m</span> =&gt;</span> m.<span class="property">real</span> &gt;= progress);</span><br><span class="line">    <span class="keyword">if</span> (!curIndex) &#123;</span><br><span class="line">        <span class="keyword">return</span> progress;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> cur = mapping[curIndex];</span><br><span class="line">    <span class="keyword">const</span> pre = mapping[curIndex - <span class="number">1</span>];</span><br><span class="line">    <span class="comment">//     原基数     +   实际进度/最大实际进度 * 期望间距</span></span><br><span class="line">    <span class="keyword">return</span> pre.<span class="property">target</span> + (progress - pre.<span class="property">real</span>) / (cur.<span class="property">real</span> - pre.<span class="property">real</span>) * (cur.<span class="property">target</span> - pre.<span class="property">target</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapping = [&#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">0</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">50</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">60</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">80</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">100</span></span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;15&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">15</span>, mapping));  <span class="comment">// 15 25</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;25&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">25</span>, mapping)); <span class="comment">// 25 41.66666666666667</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;50&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">50</span>, mapping)); <span class="comment">// 50 70</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;60&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">60</span>, mapping)); <span class="comment">// 60 80</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;100&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">100</span>, mapping)); <span class="comment">// 100 100</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="滑滚动页面到顶部"><a href="#滑滚动页面到顶部" class="headerlink" title="滑滚动页面到顶部"></a>滑滚动页面到顶部</h1><p>PC端滚动的根元素是<code>document.documentElement</code>,<br>移动端滚动的的根元素是<code>document.body</code>,<br>有一个更好的属性<code>document.scrollingElement</code>能自己识别文档的滚动元素， 其在PC端等于document.documentElement, 其在移动端等于<code>document.body</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// smooth 选项在Safari上支持不好</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">scrollToTop</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(&#123;</span><br><span class="line">        <span class="attr">left</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">top</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">behavior</span>: <span class="string">&#x27;smooth&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">scrollToTop</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> scrollTop = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span> || <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollTop</span>;</span><br><span class="line">    <span class="keyword">if</span> (scrollTop &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">requestAnimationFrame</span>(scrollToTop);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, scrollTop - scrollTop / <span class="number">8</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="禁止选择和复制"><a href="#禁止选择和复制" class="headerlink" title="禁止选择和复制"></a>禁止选择和复制</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;contextmenu&#x27;</span>, <span class="string">&#x27;selectstart&#x27;</span>, <span class="string">&#x27;copy&#x27;</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(ev, <span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">        ev.<span class="title function_">preventDefault</span>();</span><br><span class="line">        ev.<span class="property">returnValue</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>CSS</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    -moz-user-select: none;</span><br><span class="line">    -webkit-user-select: none;</span><br><span class="line">    -ms-user-select: none;</span><br><span class="line">    -khtml-user-select: none;</span><br><span class="line">    user-select: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="禁止图片拖拽"><a href="#禁止图片拖拽" class="headerlink" title="禁止图片拖拽"></a>禁止图片拖拽</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;dragstart&#x27;</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(ev, <span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">        ev.<span class="title function_">preventDefault</span>();</span><br><span class="line">        ev.<span class="property">returnValue</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="自增长ID"><a href="#自增长ID" class="headerlink" title="自增长ID"></a>自增长ID</h1><p>自己生产自增长的ID值，当然可以更复杂一些。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getId</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> id++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getId</span>()); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getId</span>()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <h5 itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "https://likaiku.github.io/posts/6085e14f.html",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "https://likaiku.github.io/posts/6085e14f.html";
+            const title         = "「工具函数」";
+            const excerpt       = `localStorage的已使用空间在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。所以在测试代码中，你把a修改啊，不会影响存储的数量。 但是键的长度，会影响存储的数量。`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    
+                </div>
+                <div class="pull-date">
+                    <time datetime="2023-03-23T14:50:46.408Z" itemprop="dateModified">最后编辑：2023-03-23</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" js常用方法" href="/posts/11be3759.html">&lt; 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" H5常见机型适配" href="/posts/47cf154e.html">下一篇 &gt;</a>
+            </div>
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">不积跬步无以至千里</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                16
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                9
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/html-css/">html&css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js%E5%9F%BA%E7%A1%80/">js基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/">react项目配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E7%94%A8/">通用</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a><span class="category-list-count">4</span></li></ul>
+  </aside>
+
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/849a3ae4.html"><i class="fa  fa-book"></i> vscode中settings配置</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/8ae780ab.html"><i class="fa  fa-book"></i> react常用hooks</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/b172fb3f.html"><i class="fa  fa-book"></i> react基础</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/47cf154e.html"><i class="fa  fa-book"></i> H5常见机型适配</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/6085e14f.html"><i class="fa  fa-book"></i> 工具函数</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        <!-- Keep for compatibility -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- New links -->
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2023 林深时见鹿 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by 林深.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="snow-switch">
+                        <span class="fa fa-snowflake-o"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="/vendors/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+<script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async src="/js/snow.min.js"></script>
+    </div>
+
+
+    <script async src="/js/candy.min.js"></script>
+
+
+
+    <script defer src="/vendors/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="/vendors/meting@2.0.1/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="3204190542"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>
