@@ -24,7 +24,7 @@
 <meta property="og:description" content="从输入URL到页面加载的全过程 首先在浏览器中输入url 查找缓存：浏览器先查看浏览器缓存-系统缓存-路由缓存中是否有该地址页面，如果有则显示页面内容。如果没有则进行下一步。   浏览器缓存：浏览器会记录DNS一段时间，因此，只是第一个地方解析DNS请求； 操作系统缓存：如果在浏览器缓存中不包含这个记录，则会使系统调用操作系统，获取操作系统的记录（保存最近的DNS查询缓存）； 路由器缓存： 如果上">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-23T14:35:52.000Z">
-<meta property="article:modified_time" content="2023-03-23T14:49:47.323Z">
+<meta property="article:modified_time" content="2023-03-24T04:08:07.879Z">
 <meta property="article:author" content="林深">
 <meta name="twitter:card" content="summary">
   
@@ -171,7 +171,7 @@
                     <i class="fa fa-edit"></i> 
                     
                     
-                        ~4.21K
+                        ~4.12K
                     
                     字
                 </li>
@@ -182,7 +182,7 @@
             
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
                 <div class="icon"><i class="fa fa-warning"></i></div>
-                <div class="text"><p>本文最后编辑于 <time datetime="1679582987323"></time> 前，其中的内容可能需要更新。</p></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1679630887879"></time> 前，其中的内容可能需要更新。</p></div>
             </div>
             
             
@@ -225,7 +225,34 @@
 <li>浏览器每次发起请求，都会<code>先在浏览器缓存中查找该请求的结果以及缓存标识</code></li>
 <li>浏览器每次拿到返回的请求结果都会<code>将该结果和缓存标识存入浏览器缓存中</code></li>
 </ul>
-<h1 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h1><figure class="highlight plaintext"><figcaption><span>```Expires 和 Cache-Control```，其中```Cache-Control```优先级比```Expires```高。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">强制缓存的情况主要有三种(暂不分析协商缓存过程)，如下：</span><br><span class="line"></span><br><span class="line">1. 不存在该缓存结果和缓存标识，强制缓存失效，则直接向服务器发起请求（跟第一次发起请求一致）。</span><br><span class="line">2. 存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存。</span><br><span class="line">3. 存在该缓存结果和缓存标识，且该结果尚未失效，强制缓存生效，直接返回该结果</span><br><span class="line"></span><br><span class="line">#   协商缓存</span><br><span class="line">```协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程```，同样，协商缓存的标识也是在响应报文的HTTP头中和请求结果一起返回给浏览器的，控制协商缓存的字段分别有：```Last-Modified / If-Modified-Since 和 Etag / If-None-Match，其中Etag / If-None-Match的优先级比Last-Modified / If-Modified-Since高```。协商缓存主要有以下两种情况：</span><br><span class="line"></span><br><span class="line">1. 协商缓存生效，返回304</span><br><span class="line">2. 协商缓存失效，返回200和请求结果结果</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 首先我们来说一下浏览器是由哪两部分组成？</span><br><span class="line"></span><br><span class="line">1. 渲染引擎： 用来解析HTML和CSS，俗称内核，比如chrome浏览器的blink，老版本的webkit</span><br><span class="line">2. JS引擎： 也称为javascript解释器，用来读取网页中的javascript代码，对其处理后运行，比如chrome浏览器的V8</span><br><span class="line">3. 注： 浏览器并不会执行javascript代码，而是通过内置的js引擎(解释器)来执行javascript代码</span><br><span class="line">javascript引擎执行代码时逐行解释每一句源码(转换为机器语言)，然后由计算机去执行，所以javascript语言归为脚本语言，会逐行解释执行</span><br><span class="line"></span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"># 补充</span><br><span class="line">1. 大多数浏览器（chrome）让一个单线程供用于执行```JavaScript```和更新用户界面。这个线程通常被称为&quot;浏览器UI线程&quot;，</span><br><span class="line">每个时刻只能执行其中一种操作，这意味着当```JavaScript```代码正在执行时用户界面无法响应输入，</span><br><span class="line">   反之亦然。这样做是因为```JavaScript```代码的作用就是操作```DOM```更新用户页面，</span><br><span class="line">   用同一个线程来做这两件事情可以更高效。</span><br><span class="line">   </span><br><span class="line">2. 浏览器UI线程的工作基于一个简单的队列系统，任务会被保存到队列中直到进程空闲。一旦空闲，队列中的下一个任务就被重新提取出来并运行。这些任务要么是运行javascript代码，要么执行UI更新，包括重绘和重排。</span><br><span class="line">3. 重要的事情说三遍，```javascript是单线程运行 -- 单线程运行 -- 单线程运行```，千万不要被setTimeout()和setInterVal()这种函数迷惑而误以为它是多线程。</span><br><span class="line"></span><br><span class="line"># 接下来直入主题</span><br><span class="line"></span><br><span class="line">## 1.原理</span><br><span class="line"></span><br><span class="line">一般来说，```&lt;script&gt;```标签每次出现都会霸道的让页面等待脚本的解析和执行。无论当前的</span><br><span class="line">```JavaScript```是内嵌的还是包含了外链文件，页面的下载和渲染都必须停下来等待脚本执行完成。</span><br><span class="line">这在页面的生存周期是必要的，因为脚本的执行过程可能会改变页面的内容。</span><br><span class="line">### 比如</span><br><span class="line">在页面中使用```document.write()```。方法可向文档写入 HTML 表达式或 JavaScript 代码</span><br><span class="line"></span><br><span class="line">当javascript代码是内嵌在html里面时，这点还是比较容易理解，</span><br><span class="line">但当javascript是外链文件时稍微有点负载，因为存在一个加载过程，</span><br><span class="line">而且浏览器加载好这个js文件之后往往还对其缓存。</span><br><span class="line"></span><br><span class="line">### 例子</span><br><span class="line">```html</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt; </span><br><span class="line">  &lt;script type=&#x27;text/javascript&#x27; src=&#x27;js/f2.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt; </span><br></pre></td></tr></table></figure>
+<h1 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h1><p>** 强制缓存就是向浏览器缓存查找该请求结果，并根据该结果的缓存规则来决定是否使用该缓存结果的过程 **。当浏览器向服务器发起请求时，服务器会将缓存规则放入HTTP响应报文的HTTP头中和请求结果一起返回给浏览器，控制强制缓存的字段分别是 Expires 和 Cache-Control，其中 Cache-Control 优先级比 Expires 高。<br>强制缓存的情况主要有三种(暂不分析协商缓存过程)，如下：</p>
+<ol>
+<li>不存在该缓存结果和缓存标识，强制缓存失效，则直接向服务器发起请求（跟第一次发起请求一致）。</li>
+<li>存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存。</li>
+<li>存在该缓存结果和缓存标识，且该结果尚未失效，强制缓存生效，直接返回该结果</li>
+</ol>
+<h1 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h1><p>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，同样，协商缓存的标识也是在响应报文的HTTP头中和请求结果一起返回给浏览器的，控制协商缓存的字段分别有：Last-Modified &#x2F; If-Modified-Since 和 Etag &#x2F; If-None-Match，其中Etag &#x2F; If-None-Match的优先级比Last-Modified &#x2F; If-Modified-Since高。协商缓存主要有以下两种情况：</p>
+<ol>
+<li>协商缓存生效，返回304</li>
+<li>协商缓存失效，返回200和请求结果结果</li>
+</ol>
+<h1 id="首先我们来说一下浏览器是由哪两部分组成？"><a href="#首先我们来说一下浏览器是由哪两部分组成？" class="headerlink" title="首先我们来说一下浏览器是由哪两部分组成？"></a>首先我们来说一下浏览器是由哪两部分组成？</h1><ol>
+<li>渲染引擎： 用来解析HTML和CSS，俗称内核，比如chrome浏览器的blink，老版本的webkit</li>
+<li>JS引擎： 也称为javascript解释器，用来读取网页中的javascript代码，对其处理后运行，比如chrome浏览器的V8</li>
+<li>注： 浏览器并不会执行javascript代码，而是通过内置的js引擎(解释器)来执行javascript代码<br>javascript引擎执行代码时逐行解释每一句源码(转换为机器语言)，然后由计算机去执行，所以javascript语言归为脚本语言，会逐行解释执行</li>
+</ol>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
+<li><p>大多数浏览器（chrome）让一个单线程供用于执行<code>JavaScript</code>和更新用户界面。这个线程通常被称为”浏览器UI线程”，<br>每个时刻只能执行其中一种操作，这意味着当<code>JavaScript</code>代码正在执行时用户界面无法响应输入，<br>反之亦然。这样做是因为<code>JavaScript</code>代码的作用就是操作<code>DOM</code>更新用户页面，<br>用同一个线程来做这两件事情可以更高效。</p>
+</li>
+<li><p>浏览器UI线程的工作基于一个简单的队列系统，任务会被保存到队列中直到进程空闲。一旦空闲，队列中的下一个任务就被重新提取出来并运行。这些任务要么是运行javascript代码，要么执行UI更新，包括重绘和重排。</p>
+</li>
+<li><p>重要的事情说三遍，<code>javascript是单线程运行 -- 单线程运行 -- 单线程运行</code>，千万不要被setTimeout()和setInterVal()这种函数迷惑而误以为它是多线程。</p>
+</li>
+</ol>
+<h1 id="接下来直入主题"><a href="#接下来直入主题" class="headerlink" title="接下来直入主题"></a>接下来直入主题</h1><h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><p>一般来说，<code>&lt;script&gt;</code>标签每次出现都会霸道的让页面等待脚本的解析和执行。无论当前的<br>JavaScript 是内嵌的还是包含了外链文件，页面的下载和渲染都必须停下来等待脚本执行完成。<br>这在页面的生存周期是必要的，因为脚本的执行过程可能会改变页面的内容。</p>
+<h3 id="比如"><a href="#比如" class="headerlink" title="比如"></a>比如</h3><p>在页面中使用<code>document.write()</code>。方法可向文档写入 HTML 表达式或 JavaScript 代码</p>
+<p>当javascript代码是内嵌在html里面时，这点还是比较容易理解，<br>但当javascript是外链文件时稍微有点负载，因为存在一个加载过程，<br>而且浏览器加载好这个js文件之后往往还对其缓存。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&#x27;text/javascript&#x27;</span> <span class="attr">src</span>=<span class="string">&#x27;js/f2.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>当一个javascript文件被加载时是否会阻塞其他javascript文件或者其他文件的加载呢？</p>
 <p>答案是：各种浏览器的低版本的处理是当一个js文件在加载时，会同时阻塞页面其他文件的加载。<br>（包括其他的js文件）但是ie8、Firfox3.5、Safari 4和Chrome 2都允许并行下载javascript文件，<br>但是呢，javascript下载过程仍然会阻塞其他资源的下载，比如图片。尽管javascript脚本的下载过程不会相互影响，但页面仍然必须等待所有的javascript代码下载并执行完成才能继续。</p>
 <h2 id="2-优化的方法（技巧）"><a href="#2-优化的方法（技巧）" class="headerlink" title="2. 优化的方法（技巧）"></a>2. 优化的方法（技巧）</h2><ol>
@@ -333,7 +360,7 @@ lsp缓存：若上述均失败，继续向ISP搜索。`;
                     
                 </div>
                 <div class="pull-date">
-                    <time datetime="2023-03-23T14:49:47.323Z" itemprop="dateModified">最后编辑：2023-03-23</time>
+                    <time datetime="2023-03-24T04:08:07.879Z" itemprop="dateModified">最后编辑：2023-03-24</time>
                 </div>
             </div>
         </footer>
@@ -384,7 +411,7 @@ lsp缓存：若上述均失败，继续向ISP搜索。`;
                 文章
             </span>
             <span class="count">
-                16
+                17
             </span>
         </a>
         <a class="meta-item" href="/categories/">
@@ -411,7 +438,7 @@ lsp缓存：若上述均失败，继续向ISP搜索。`;
                 
   <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
     <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/html-css/">html&css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js%E5%9F%BA%E7%A1%80/">js基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/">react项目配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E7%94%A8/">通用</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/html-css/">html&css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js%E5%9F%BA%E7%A1%80/">js基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/">react项目配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E7%94%A8/">通用</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a><span class="category-list-count">5</span></li></ul>
   </aside>
 
 
@@ -424,6 +451,12 @@ lsp缓存：若上述均失败，继续向ISP搜索。`;
   <div class="tab-content">
       <ul class="list-group">
         
+        
+          
+          
+            <a class="list-group-item" href="/posts/608487bc.html"><i class="fa  fa-book"></i> 网络篇</a>
+            
+          
         
           
           
@@ -450,11 +483,7 @@ lsp缓存：若上述均失败，继续向ISP搜索。`;
           
         
           
-          
-            <a class="list-group-item" href="/posts/6085e14f.html"><i class="fa  fa-book"></i> 工具函数</a>
             
-          
-        
           
             
           
