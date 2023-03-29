@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"likaiku.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="localStorage的已使用空间在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。所以在测试代码中，你把a修改啊，不会影响存储的数量。 但是键的长度，会影响存储的数量。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具函数">
+<meta property="og:url" content="https://likaiku.github.io/posts/e39752e0.html">
+<meta property="og:site_name" content="林深时见鹿">
+<meta property="og:description" content="localStorage的已使用空间在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。所以在测试代码中，你把a修改啊，不会影响存储的数量。 但是键的长度，会影响存储的数量。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-29T15:57:19.000Z">
+<meta property="article:modified_time" content="2023-03-29T15:57:37.687Z">
+<meta property="article:author" content="林深">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://likaiku.github.io/posts/e39752e0.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://likaiku.github.io/posts/e39752e0.html","path":"posts/e39752e0.html","title":"工具函数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>工具函数 | 林深时见鹿</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+<script type="text/javascript"
+    count="150"
+    opacity: 1
+    src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">林深时见鹿</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不积跬步无以至千里</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#localStorage%E7%9A%84%E5%B7%B2%E4%BD%BF%E7%94%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">localStorage的已使用空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%A6%E5%9B%BE%E5%B8%A6%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%A1%8C%E9%9D%A2%E9%80%9A%E7%9F%A5"><span class="nav-number">2.</span> <span class="nav-text">带图带事件的桌面通知</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%94%9F30%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%A7%86%E9%A2%91%E6%88%AA%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">原生30行代码实现视频截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EURLSearchParams%E6%88%96URL%E8%8E%B7%E5%8F%96queryString%E7%9A%84%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">基于URLSearchParams或URL获取queryString的值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Eatob%E5%92%8Cbtoa%E7%9A%84base64%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">基于atob和btoa的base64编码和解码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%9E%E6%AD%A3%E5%88%99%E6%9B%BF%E6%8D%A2%E7%9A%84html%E4%BB%A3%E7%A0%81encode%E5%92%8Cdecode"><span class="nav-number">6.</span> <span class="nav-text">非正则替换的html代码encode和decode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%BB%9D%E5%AF%B9%E5%9C%B0%E5%9D%80"><span class="nav-number">7.</span> <span class="nav-text">相对地址转换为绝对地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EURL%E6%88%96%E8%80%85Crypto-getRandomValues%E7%94%9F%E6%88%90UUID"><span class="nav-number">8.</span> <span class="nav-text">基于URL或者Crypto.getRandomValues生成UUID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EArray-from%E7%9A%84%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">9.</span> <span class="nav-text">基于Array.from的序列生成器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EsendBeacon%E7%9A%84%E5%AE%89%E5%85%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%8A%E6%8A%A5"><span class="nav-number">10.</span> <span class="nav-text">基于sendBeacon的安全的数据上报</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EtoLocaleString%E5%8D%83%E5%88%86%E4%BD%8D"><span class="nav-number">11.</span> <span class="nav-text">基于toLocaleString千分位</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="nav-number">12.</span> <span class="nav-text">Promise顺序执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6%E6%89%A7%E8%A1%8Cdelay"><span class="nav-number">13.</span> <span class="nav-text">延时执行delay</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E5%BA%A6%E5%80%BC%E6%98%A0%E5%B0%84"><span class="nav-number">14.</span> <span class="nav-text">进度值映射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BB%91%E6%BB%9A%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%88%B0%E9%A1%B6%E9%83%A8"><span class="nav-number">15.</span> <span class="nav-text">滑滚动页面到顶部</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2%E9%80%89%E6%8B%A9%E5%92%8C%E5%A4%8D%E5%88%B6"><span class="nav-number">16.</span> <span class="nav-text">禁止选择和复制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2%E5%9B%BE%E7%89%87%E6%8B%96%E6%8B%BD"><span class="nav-number">17.</span> <span class="nav-text">禁止图片拖拽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E9%95%BFID"><span class="nav-number">18.</span> <span class="nav-text">自增长ID</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="林深"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">林深</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/e39752e0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="林深">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林深时见鹿">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="工具函数 | 林深时见鹿">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          工具函数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-29 23:57:19 / 修改时间：23:57:37" itemprop="dateCreated datePublished" datetime="2023-03-29T23:57:19+08:00">2023-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%80%9A%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">通用</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="localStorage的已使用空间"><a href="#localStorage的已使用空间" class="headerlink" title="localStorage的已使用空间"></a>localStorage的已使用空间</h1><p>在较新的chrome上测试，localStorage的存储是按照字符个数来算的。 包含键和值的。<br>所以在测试代码中，你把<code>a</code>修改<code>啊</code>，不会影响存储的数量。 但是键的长度，会影响存储的数量。</p>
+<span id="more"></span>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getLSUsedSpace</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">localStorage</span>).<span class="title function_">reduce</span>(<span class="function">(<span class="params">total, curKey</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">localStorage</span>.<span class="title function_">hasOwnProperty</span>(curKey)) &#123;</span><br><span class="line">            <span class="keyword">return</span> total;</span><br><span class="line">        &#125;</span><br><span class="line">        total += <span class="variable language_">localStorage</span>[curKey].<span class="property">length</span> + curKey.<span class="property">length</span>;</span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">clear</span>();</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="property">a</span> = <span class="string">&quot;啊&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getLSUsedSpace</span>()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h1 id="带图带事件的桌面通知"><a href="#带图带事件的桌面通知" class="headerlink" title="带图带事件的桌面通知"></a>带图带事件的桌面通知</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">doNotify</span>(<span class="params">title, options = &#123;&#125;, events = &#123;&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> notification = <span class="keyword">new</span> <span class="title class_">Notification</span>(title, options);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> event <span class="keyword">in</span> events) &#123;</span><br><span class="line">        notification[event] = events[event];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">notify</span>(<span class="params">title, options = &#123;&#125;, events = &#123;&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!(<span class="string">&quot;Notification&quot;</span> <span class="keyword">in</span> <span class="variable language_">window</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;This browser does not support desktop notification&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Notification</span>.<span class="property">permission</span> === <span class="string">&quot;granted&quot;</span>) &#123;</span><br><span class="line">        <span class="title function_">doNotify</span>(title, options, events);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Notification</span>.<span class="property">permission</span> !== <span class="string">&quot;denied&quot;</span>) &#123;</span><br><span class="line">        <span class="title class_">Notification</span>.<span class="title function_">requestPermission</span>().<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">permission</span>) &#123;           </span><br><span class="line">            <span class="keyword">if</span> (permission === <span class="string">&quot;granted&quot;</span>) &#123;</span><br><span class="line">                <span class="title function_">doNotify</span>(title, options, events);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">notify</span>(<span class="string">&quot;中奖提示&quot;</span>, &#123;</span><br><span class="line">       <span class="attr">icon</span>: <span class="string">&quot;https://sf1-ttcdn-tos.pstatp.com/img/user-avatar/f1a9f122e925aeef5e4534ff7f706729~300x300.image&quot;</span>,</span><br><span class="line">       <span class="attr">body</span>: <span class="string">&quot;恭喜你，掘金签到一等奖&quot;</span>,</span><br><span class="line">       <span class="attr">tag</span>: <span class="string">&quot;prize&quot;</span></span><br><span class="line">   &#125;, &#123;</span><br><span class="line">       <span class="title function_">onclick</span>(<span class="params">ev</span>) &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(ev);</span><br><span class="line">           ev.<span class="property">target</span>.<span class="title function_">close</span>();</span><br><span class="line">           <span class="variable language_">window</span>.<span class="title function_">focus</span>();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="原生30行代码实现视频截图"><a href="#原生30行代码实现视频截图" class="headerlink" title="原生30行代码实现视频截图"></a>原生30行代码实现视频截图</h1><p>基本原理就是把视频画到Canvas里面，然后调用toDataURL或者toBlob，再利用a标签模拟点击，download属性指定名字。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">captureVideo</span>(<span class="params">videoEl</span>) &#123;</span><br><span class="line">       <span class="keyword">let</span> canvasEl;</span><br><span class="line">       <span class="keyword">let</span> dataUrl;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">const</span> cps = <span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(videoEl);</span><br><span class="line">           <span class="keyword">const</span> width = +cps.<span class="title function_">getPropertyValue</span>(<span class="string">&quot;width&quot;</span>).<span class="title function_">replace</span>(<span class="string">&quot;px&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">           <span class="keyword">const</span> height = +cps.<span class="title function_">getPropertyValue</span>(<span class="string">&quot;height&quot;</span>).<span class="title function_">replace</span>(<span class="string">&quot;px&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">           canvasEl = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line">           canvasEl.<span class="property">style</span>.<span class="property">cssText</span> = <span class="string">`position:fixed;left:-9999px`</span>;</span><br><span class="line">           canvasEl.<span class="property">height</span> = height;</span><br><span class="line">           canvasEl.<span class="property">width</span> = width;</span><br><span class="line"></span><br><span class="line">           <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(canvasEl);</span><br><span class="line">           </span><br><span class="line">           <span class="keyword">const</span> ctx = canvasEl.<span class="title function_">getContext</span>(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">           ctx.<span class="title function_">drawImage</span>(videoEl, <span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">           <span class="comment">// const image = canvas.toDataURL(&quot;image/png&quot;);</span></span><br><span class="line">           dataUrl = canvasEl.<span class="title function_">toDataURL</span>();</span><br><span class="line"></span><br><span class="line">           <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(canvasEl);</span><br><span class="line">           canvasEl = <span class="literal">null</span>;</span><br><span class="line">           <span class="keyword">return</span> dataUrl;</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           <span class="keyword">if</span> (canvasEl) &#123;</span><br><span class="line">               <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(canvasEl);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (dataUrl) &#123;</span><br><span class="line">               <span class="keyword">return</span> dataUrl;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong><br>注意添加<code>crossorigin=&quot;anonymous&quot;</code>，不然转为图片会失败。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  &lt;video id=<span class="string">&quot;videoEL&quot;</span> controls autoplay crossorigin=<span class="string">&quot;anonymous&quot;</span></span><br><span class="line">        src=<span class="string">&quot;https://api.dogecloud.com/player/get.mp4?vcode=5ac682e6f8231991&amp;userId=17&amp;ext=.mp4&quot;</span> width=<span class="string">&quot;500&quot;</span>&gt;&lt;/video&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">download</span>(<span class="params">url</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> aEl = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    aEl.<span class="property">href</span> = url;</span><br><span class="line">    aEl.<span class="property">download</span> = <span class="string">&quot;视频.png&quot;</span>;</span><br><span class="line">    aEl.<span class="title function_">click</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">doCaptureVideo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="title function_">captureVideo</span>(videoEL);</span><br><span class="line">    <span class="title function_">download</span>(url);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">doCaptureVideo</span>()</span><br></pre></td></tr></table></figure>
+<h1 id="基于URLSearchParams或URL获取queryString的值"><a href="#基于URLSearchParams或URL获取queryString的值" class="headerlink" title="基于URLSearchParams或URL获取queryString的值"></a>基于UR<code>LSearchParams</code>或<code>URL</code>获取queryString的值</h1><p>常用的方式是使用正则或者<code>split</code>方法，其实不然，<code>URLSearchParams</code>和<code>URL</code>都能很好的实现功能。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> urlSP = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(location.<span class="property">search</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getQueryString</span>(<span class="params">key</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> urlSP.<span class="title function_">get</span>(key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> urlObj = <span class="keyword">new</span> <span class="title function_">URL</span>(location.<span class="property">href</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getQueryString</span>(<span class="params">key</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> urlObj.<span class="property">searchParams</span>.<span class="title function_">get</span>(key)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">测试地址： /index.<span class="property">html</span>?pid=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> log = <span class="variable language_">console</span>.<span class="property">log</span>;</span><br><span class="line">getQueryString</span><br><span class="line"></span><br><span class="line"><span class="title function_">log</span>(<span class="string">&quot;pid&quot;</span>, <span class="title function_">getQueryString</span>(<span class="string">&quot;pid&quot;</span>));  <span class="comment">// pid 10</span></span><br><span class="line"><span class="title function_">log</span>(<span class="string">&quot;cid&quot;</span>, <span class="title function_">getQueryString</span>(<span class="string">&quot;cid&quot;</span>));  <span class="comment">// cid null</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="基于atob和btoa的base64编码和解码"><a href="#基于atob和btoa的base64编码和解码" class="headerlink" title="基于atob和btoa的base64编码和解码"></a>基于<code>atob</code>和<code>btoa</code>的base64编码和解码</h1><p>浏览器内置了base64编码和解码的能力，第三方库，不需要的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">utf8_to_b64</span>(<span class="params"> str </span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">window</span>.<span class="title function_">btoa</span>(<span class="built_in">unescape</span>(<span class="built_in">encodeURIComponent</span>( str )));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b64_to_utf8</span>(<span class="params"> str </span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(<span class="built_in">escape</span>(<span class="variable language_">window</span>.<span class="title function_">atob</span>( str )));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">utf8_to_b64</span>(<span class="string">&#x27;✓ à la mode&#x27;</span>); <span class="comment">// &quot;4pyTIMOgIGxhIG1vZGU=&quot;</span></span><br><span class="line"><span class="title function_">b64_to_utf8</span>(<span class="string">&#x27;4pyTIMOgIGxhIG1vZGU=&#x27;</span>); <span class="comment">// &quot;✓ à la mode&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="非正则替换的html代码encode和decode"><a href="#非正则替换的html代码encode和decode" class="headerlink" title="非正则替换的html代码encode和decode"></a>非正则替换的html代码encode和decode</h1><p>常规的方式是使用正则替换，这里是另外一种思路。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">htmlencode</span>(<span class="params">s</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">    div.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(s));</span><br><span class="line">    <span class="keyword">var</span> result = div.<span class="property">innerHTML</span>;</span><br><span class="line">    div = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">htmldecode</span>(<span class="params">s</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">    div.<span class="property">innerHTML</span> = s;</span><br><span class="line">    <span class="keyword">var</span> result = div.<span class="property">innerText</span> || div.<span class="property">textContent</span>;</span><br><span class="line">    div = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">htmlencode</span>(<span class="string">&quot;&lt;div&gt;3&gt;5 &amp; 666&lt;/div&gt;&quot;</span>); <span class="comment">// &amp;lt;div&amp;gt;3&amp;gt;5 &amp;amp; 666&amp;lt;/div&amp;gt;</span></span><br><span class="line"><span class="title function_">htmldecode</span>(<span class="string">&quot;&amp;lt;div&amp;gt;3&amp;gt;5 &amp;amp; 666&amp;lt;/div&amp;gt;&quot;</span>) <span class="comment">// &lt;div&gt;3&gt;5 &amp; 666&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="相对地址转换为绝对地址"><a href="#相对地址转换为绝对地址" class="headerlink" title="相对地址转换为绝对地址"></a>相对地址转换为绝对地址</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">realativeToAbs</span>(<span class="params">href</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> aEl = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    aEl.<span class="property">href</span> = href;    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result = aEl.<span class="property">href</span>;</span><br><span class="line">    aEl = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;realativeToAbs&quot;</span>, <span class="title function_">realativeToAbs</span>(<span class="string">&quot;../a/b/b/index.html&quot;</span>));</span><br><span class="line"><span class="comment">// realativeToAbs http://127.0.0.1:5500/a/b/b/index.html</span></span><br></pre></td></tr></table></figure>
+<h1 id="基于URL或者Crypto-getRandomValues生成UUID"><a href="#基于URL或者Crypto-getRandomValues生成UUID" class="headerlink" title="基于URL或者Crypto.getRandomValues生成UUID"></a>基于<code>URL</code>或者<code>Crypto.getRandomValues</code>生成UUID</h1><p>URL.createObjectURL 产生的地址为 <code>blob:https://developer.mozilla.org/cb48b940-c625-400a-a393-176c3635020b</code>, 其后部分就是一个UUID</p>
+<ol>
+<li>方法一<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">genUUID</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="variable constant_">URL</span>.<span class="title function_">createObjectURL</span>(<span class="keyword">new</span> <span class="title class_">Blob</span>([]));</span><br><span class="line">    <span class="comment">// const uuid = url.split(&quot;/&quot;).pop();</span></span><br><span class="line">    <span class="keyword">const</span> uuid = url.<span class="title function_">substring</span>(url.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;/&#x27;</span>)+ <span class="number">1</span>);</span><br><span class="line">    <span class="variable constant_">URL</span>.<span class="title function_">revokeObjectURL</span>(url);</span><br><span class="line">    <span class="keyword">return</span> uuid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">genUUID</span>() <span class="comment">// cd205467-0120-47b0-9444-894736d873c7</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>方法二<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">uuidv4</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> ([<span class="number">1e7</span>]+-<span class="number">1e3</span>+-<span class="number">4e3</span>+-<span class="number">8e3</span>+-<span class="number">1e11</span>).<span class="title function_">replace</span>(<span class="regexp">/[018]/g</span>, <span class="function"><span class="params">c</span> =&gt;</span></span><br><span class="line">    (c ^ crypto.<span class="title function_">getRandomValues</span>(<span class="keyword">new</span> <span class="title class_">Uint8Array</span>(<span class="number">1</span>))[<span class="number">0</span>] &amp; <span class="number">15</span> &gt;&gt; c / <span class="number">4</span>).<span class="title function_">toString</span>(<span class="number">16</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">uuidv4</span>() <span class="comment">// 38aa1602-ba78-4368-9235-d8703cdb6037</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="基于Array-from的序列生成器"><a href="#基于Array-from的序列生成器" class="headerlink" title="基于Array.from的序列生成器"></a>基于<code>Array.from</code>的序列生成器</h1><p>造有序数据，无序数据，等等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">range</span> = (<span class="params">start, stop, step</span>) =&gt; <span class="title class_">Array</span>.<span class="title function_">from</span>(</span><br><span class="line">    &#123; <span class="attr">length</span>: (stop - start) / step + <span class="number">1</span>&#125;, </span><br><span class="line">    <span class="function">(<span class="params">_, i</span>) =&gt;</span> start + (i * step)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">range</span>(<span class="number">0</span>, <span class="number">4</span>, <span class="number">1</span>); <span class="comment">// [0, 1, 2, 3, 4]</span></span><br><span class="line"><span class="title function_">range</span>(<span class="number">0</span>, <span class="number">9</span>, <span class="number">3</span>); <span class="comment">// [0, 3, 6, 9]</span></span><br><span class="line"><span class="title function_">range</span>(<span class="number">0</span>, <span class="number">8</span>, <span class="number">2.5</span>) <span class="comment">// [0, 2.5, 5, 7.5]</span></span><br></pre></td></tr></table></figure>
+<h1 id="基于sendBeacon的安全的数据上报"><a href="#基于sendBeacon的安全的数据上报" class="headerlink" title="基于sendBeacon的安全的数据上报"></a>基于<code>sendBeacon</code>的安全的数据上报</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">report</span>(<span class="params">url, data</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> navigator.<span class="property">sendBeacon</span> !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;sendBeacon不被支持&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    navigator.<span class="title function_">sendBeacon</span>(url, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;unload&#x27;</span>, logData, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">logData</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="title function_">report</span>(<span class="string">&quot;/log&quot;</span>, <span class="string">&quot;被卸载了&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="基于toLocaleString千分位"><a href="#基于toLocaleString千分位" class="headerlink" title="基于toLocaleString千分位"></a>基于<code>toLocaleString</code>千分位</h1><p>正则？ 遍历？ 不需要的。内置函数就解决。<br>当然，如果是超大的数，可能是会有问题的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatMoney</span>(<span class="params">num</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> (+num).<span class="title function_">toLocaleString</span>(<span class="string">&quot;en-US&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">formatMoney</span>(<span class="number">123456789</span>));  <span class="comment">// 123,456,789</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">formatMoney</span>(<span class="number">6781</span>)) <span class="comment">// 6,781</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">formatMoney</span>(<span class="number">5</span>)) <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 超大的数</span></span><br><span class="line"><span class="title function_">formatMoney</span>(<span class="number">19999999933333333333333</span>) <span class="comment">// 19,999,999,933,333,333,000,000</span></span><br></pre></td></tr></table></figure>
+<h1 id="Promise顺序执行"><a href="#Promise顺序执行" class="headerlink" title="Promise顺序执行"></a>Promise顺序执行</h1><p>让Promise顺序的执行，并支持初始化参数和结果作为参数传递。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">runPromises</span>(<span class="params">promiseCreators, initData</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> promiseCreators</span><br><span class="line">        .<span class="title function_">reduce</span>(<span class="function">(<span class="params">promise, next</span>) =&gt;</span> promise</span><br><span class="line">                .<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> <span class="title function_">next</span>(data))</span><br><span class="line">            , <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(initData));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise1 = <span class="keyword">function</span> (<span class="params">data = <span class="number">0</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(data + <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> promise2 = <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(data -<span class="number">500</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">runPromises</span>([promise1, promise2], <span class="number">1</span>).<span class="title function_">then</span>(<span class="function"><span class="params">res</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(res));</span><br></pre></td></tr></table></figure>
+<h1 id="延时执行delay"><a href="#延时执行delay" class="headerlink" title="延时执行delay"></a>延时执行delay</h1><p>延时执行某函数，且只会执行一次。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">delay</span>(<span class="params">fn = () =&gt; &#123; &#125;, delay = <span class="number">5000</span>, context = <span class="literal">null</span></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> ticket = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> runned = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="title function_">run</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (runned === <span class="literal">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                runned = <span class="literal">true</span>;</span><br><span class="line">                ticket = <span class="built_in">setTimeout</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">const</span> res = <span class="keyword">await</span> fn.<span class="title function_">apply</span>(context, args);</span><br><span class="line">                        <span class="title function_">resolve</span>(res);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">                        <span class="title function_">reject</span>(err)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, delay)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">cancel</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(ticket);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">delay</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;你们好&quot;</span>);</span><br><span class="line">&#125;).<span class="title function_">run</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; run, cancel &#125; = <span class="title function_">delay</span>(<span class="keyword">function</span> (<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;你好：&quot;</span>, name);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">run</span>(<span class="string">&quot;吉他&quot;</span>);</span><br><span class="line"><span class="title function_">run</span>(<span class="string">&quot;吉他&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们好</span></span><br><span class="line"><span class="comment">// 你好： 吉他</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="进度值映射"><a href="#进度值映射" class="headerlink" title="进度值映射"></a>进度值映射</h1><p>进度映射，比较只有 10%的进度，确要显示50%的进度的场景。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">adjustProgress</span>(<span class="params">progress: <span class="built_in">number</span>, mapping: &#123; real: <span class="built_in">number</span>; target: <span class="built_in">number</span> &#125;[] = []</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (progress &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!mapping || mapping.<span class="property">length</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> progress;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 第一个</span></span><br><span class="line">    <span class="keyword">const</span> f = mapping[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">if</span> (progress &lt;= f.<span class="property">real</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> progress * (f.<span class="property">target</span> / f.<span class="property">real</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最后一个</span></span><br><span class="line">    <span class="keyword">const</span> l = mapping[mapping.<span class="property">length</span> - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (progress &gt;= l.<span class="property">target</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> l.<span class="property">target</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> curIndex = mapping.<span class="title function_">findIndex</span>(<span class="function"><span class="params">m</span> =&gt;</span> m.<span class="property">real</span> &gt;= progress);</span><br><span class="line">    <span class="keyword">if</span> (!curIndex) &#123;</span><br><span class="line">        <span class="keyword">return</span> progress;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> cur = mapping[curIndex];</span><br><span class="line">    <span class="keyword">const</span> pre = mapping[curIndex - <span class="number">1</span>];</span><br><span class="line">    <span class="comment">//     原基数     +   实际进度/最大实际进度 * 期望间距</span></span><br><span class="line">    <span class="keyword">return</span> pre.<span class="property">target</span> + (progress - pre.<span class="property">real</span>) / (cur.<span class="property">real</span> - pre.<span class="property">real</span>) * (cur.<span class="property">target</span> - pre.<span class="property">target</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapping = [&#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">0</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">50</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">60</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">80</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">real</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">target</span>: <span class="number">100</span></span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;15&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">15</span>, mapping));  <span class="comment">// 15 25</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;25&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">25</span>, mapping)); <span class="comment">// 25 41.66666666666667</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;50&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">50</span>, mapping)); <span class="comment">// 50 70</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;60&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">60</span>, mapping)); <span class="comment">// 60 80</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;100&quot;</span>, <span class="title function_">adjustProgress</span>(<span class="number">100</span>, mapping)); <span class="comment">// 100 100</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="滑滚动页面到顶部"><a href="#滑滚动页面到顶部" class="headerlink" title="滑滚动页面到顶部"></a>滑滚动页面到顶部</h1><p>PC端滚动的根元素是<code>document.documentElement</code>,<br>移动端滚动的的根元素是<code>document.body</code>,<br>有一个更好的属性<code>document.scrollingElement</code>能自己识别文档的滚动元素， 其在PC端等于document.documentElement, 其在移动端等于<code>document.body</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// smooth 选项在Safari上支持不好</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">scrollToTop</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(&#123;</span><br><span class="line">        <span class="attr">left</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">top</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">behavior</span>: <span class="string">&#x27;smooth&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">scrollToTop</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> scrollTop = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span> || <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollTop</span>;</span><br><span class="line">    <span class="keyword">if</span> (scrollTop &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">requestAnimationFrame</span>(scrollToTop);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, scrollTop - scrollTop / <span class="number">8</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="禁止选择和复制"><a href="#禁止选择和复制" class="headerlink" title="禁止选择和复制"></a>禁止选择和复制</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;contextmenu&#x27;</span>, <span class="string">&#x27;selectstart&#x27;</span>, <span class="string">&#x27;copy&#x27;</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(ev, <span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">        ev.<span class="title function_">preventDefault</span>();</span><br><span class="line">        ev.<span class="property">returnValue</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>CSS</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    -moz-user-select: none;</span><br><span class="line">    -webkit-user-select: none;</span><br><span class="line">    -ms-user-select: none;</span><br><span class="line">    -khtml-user-select: none;</span><br><span class="line">    user-select: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="禁止图片拖拽"><a href="#禁止图片拖拽" class="headerlink" title="禁止图片拖拽"></a>禁止图片拖拽</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;dragstart&#x27;</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(ev, <span class="keyword">function</span>(<span class="params">ev</span>)&#123;</span><br><span class="line">        ev.<span class="title function_">preventDefault</span>();</span><br><span class="line">        ev.<span class="property">returnValue</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="自增长ID"><a href="#自增长ID" class="headerlink" title="自增长ID"></a>自增长ID</h1><p>自己生产自增长的ID值，当然可以更复杂一些。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getId</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> id++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getId</span>()); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getId</span>()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/11be3759.html" rel="prev" title="js常用方法">
+                  <i class="fa fa-chevron-left"></i> js常用方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/608487bc.html" rel="next" title="网络篇">
+                  网络篇 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林深</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">31k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
