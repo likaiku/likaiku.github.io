@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"likaiku.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1、js的循环机制 js是单线程的，为了防止代码阻塞会将代码分成同步和异步 同步代码交给js引擎执行，异步代码交给宿主环境（浏览器、node） 同步代码放入执行栈中，异步代码等待时机成熟送入任务队列排队 执行栈执行完毕，会去任务队列查看是否有异步任务，有就送到执行栈执行，反复循环查看执行代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js篇">
+<meta property="og:url" content="https://likaiku.github.io/posts/806beef.html">
+<meta property="og:site_name" content="林深时见鹿">
+<meta property="og:description" content="1、js的循环机制 js是单线程的，为了防止代码阻塞会将代码分成同步和异步 同步代码交给js引擎执行，异步代码交给宿主环境（浏览器、node） 同步代码放入执行栈中，异步代码等待时机成熟送入任务队列排队 执行栈执行完毕，会去任务队列查看是否有异步任务，有就送到执行栈执行，反复循环查看执行代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-01T05:49:23.000Z">
+<meta property="article:modified_time" content="2023-04-01T07:44:23.821Z">
+<meta property="article:author" content="林深">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://likaiku.github.io/posts/806beef.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://likaiku.github.io/posts/806beef.html","path":"posts/806beef.html","title":"js篇"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>js篇 | 林深时见鹿</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+<script type="text/javascript"
+    count="150"
+    opacity: 1
+    src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">林深时见鹿</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不积跬步无以至千里</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81js%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">1、js的循环机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81js%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">2.</span> <span class="nav-text">2、js的事件委托</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81%E5%AE%8F%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%BE%AE%E4%BB%BB%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">3、宏任务和微任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81js%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">4、js判断数据类型的方法以及区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E6%93%8D%E4%BD%9C%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">5、操作数组的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6%E3%80%81map%E5%92%8CforEach%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">6、map和forEach的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7%E3%80%81var-let-const%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">7、var let const的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8%E3%80%81%E5%AF%B9this%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E6%94%B9%E5%8F%98this%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">8、对this的理解以及改变this的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E3%80%81Map%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB"><span class="nav-number">8.1.</span> <span class="nav-text">9、Map对象和普通对象有啥区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19%E3%80%81%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E5%92%8C%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96arguments"><span class="nav-number">8.2.</span> <span class="nav-text">19、普通函数和箭头函数的区别？箭头函数如何获取arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20%E3%80%81new%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">8.3.</span> <span class="nav-text">20、new的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21%E3%80%81JS-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.4.</span> <span class="nav-text">21、JS 数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22%E3%80%81Number-%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E6%98%AF%E5%A4%9A%E5%A4%A7%EF%BC%9F%E5%A6%82%E6%9E%9C%E5%90%8E%E5%8F%B0%E5%8F%91%E9%80%81%E4%BA%86%E4%B8%80%E4%B8%AA%E8%B6%85%E8%BF%87%E6%9C%80%E5%A4%A7%E8%87%AA%E5%B7%B1%E7%9A%84%E6%95%B0%E5%AD%97%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">8.5.</span> <span class="nav-text">22、Number() 的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23%E3%80%81%E5%AE%9E%E7%8E%B0%E5%87%BD%E6%95%B0%E8%83%BD%E5%A4%9F%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.6.</span> <span class="nav-text">23、实现函数能够深度克隆基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%EF%BC%9A"><span class="nav-number">8.6.0.1.</span> <span class="nav-text">浅拷贝：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">8.6.0.2.</span> <span class="nav-text">深拷贝</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24%E3%80%81%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">8.7.</span> <span class="nav-text">24、介绍几种常见的状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25%E3%80%81%E6%89%8B%E5%86%99-bind%E3%80%81apply%E3%80%81call"><span class="nav-number">8.8.</span> <span class="nav-text">25、手写 bind、apply、call</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="林深"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">林深</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/806beef.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="林深">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林深时见鹿">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="js篇 | 林深时见鹿">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          js篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-04-01 13:49:23 / 修改时间：15:44:23" itemprop="dateCreated datePublished" datetime="2023-04-01T13:49:23+08:00">2023-04-01</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1、js的循环机制"><a href="#1、js的循环机制" class="headerlink" title="1、js的循环机制"></a>1、js的循环机制</h1><ol>
+<li>js是单线程的，为了防止代码阻塞会将代码分成同步和异步</li>
+<li>同步代码交给js引擎执行，异步代码交给宿主环境（浏览器、node）</li>
+<li>同步代码放入执行栈中，异步代码等待时机成熟送入任务队列排队</li>
+<li>执行栈执行完毕，会去任务队列查看是否有异步任务，有就送到执行栈执行，反复循环查看执行代码</li>
+</ol>
+<span id="more"></span>
+
+<h1 id="2、js的事件委托"><a href="#2、js的事件委托" class="headerlink" title="2、js的事件委托"></a>2、js的事件委托</h1><p>  事件委托就是把原本需要绑定在子元素上的事件委托给它的父元素，让父元素来监听子元素的冒泡事件，并在子元素发生事件冒泡时找到这个子元素。（减小内存消耗、动态绑定事件）</p>
+<h1 id="3、宏任务和微任务"><a href="#3、宏任务和微任务" class="headerlink" title="3、宏任务和微任务"></a>3、宏任务和微任务</h1><ol>
+<li>js里的一种任务分类方式分为：<code>同步任务</code>和<code>异步任务</code>(微任务和宏任务，存在微任务的话，那么就执行所有的微任务，微任务都执行完之后，执行下一个宏任务)；首先判断js代码是同步还是异步，不停的检查调用栈中是否有任务需要执行，如果 没有，就检查任务队列，从中弹出一个任务，放入栈中，如此往复循环，要是同步就进入主线程，异步就进入事件表，同步任务进入主线程后一直执行，知道主线程空闲时，才会去世界队列中查看是否有可执行的一步任务，如果有就推入主线程中</li>
+<li>宏任务：script(整体代码)、setTimeout、setInterval、setImmediate、I&#x2F;O、UI render；</li>
+<li>微任务：proccess.nextTick、Promise、Async&#x2F;await（实际上就是promise）、MutationObserver（html5新特性）</li>
+</ol>
+<h1 id="4、js判断数据类型的方法以及区别"><a href="#4、js判断数据类型的方法以及区别" class="headerlink" title="4、js判断数据类型的方法以及区别"></a>4、js判断数据类型的方法以及区别</h1><ol>
+<li><code>typeof</code>检测<code>Array</code>和<code>Object</code>的返回类型都是 <code>Object</code>，因此用typeof时 无法检测出来数组和对象的；</li>
+<li><code>instaceof</code>只能用来判断数组和对象，不能判断<code>string</code>和<code>boolean</code>类型</li>
+<li>使用<code>constructor</code>方法是不保险的，因为constructor属性是可以被修改的，会导致属性检测出的结果不正确</li>
+<li><code>Object.prototype.toString.call()</code>是最好的</li>
+</ol>
+<h1 id="5、操作数组的方法"><a href="#5、操作数组的方法" class="headerlink" title="5、操作数组的方法"></a>5、操作数组的方法</h1><ol>
+<li><code>join()</code>：方法用于把数组中的所有元素转换成一个字符串，不改变原数组</li>
+<li><code>push()</code>：方法从数组末尾向数组添加元素，可以添加一个或多个元素，返回数组长度</li>
+<li><code>pop()</code>：方法英语删除数组的最后一个元素并返回删除的元素</li>
+<li><code>shift()</code>：方法用于把数组的第一个元素中其中删除，并返回第一个元素的值</li>
+<li><code>unshift()</code>：方法可向数组的开头添加一个或更多的元素，并返回新的长度</li>
+<li><code>sort()</code>：方法对数组的元素进行排序，改变原数组</li>
+<li><code>reverse()</code>：方法用于颠倒数组中元素，改变原数组</li>
+<li><code>concat()</code>：方法用于连接两个或者多个数组，不改变原数组</li>
+<li><code>slice()</code>：返回从原数组中指定开始下表到结束下标之间的项组成的新数组</li>
+<li><code>splice()</code>：很强大的数组方法，它有很多种用法，可以实现删除、插入和替换。</li>
+<li><code>indexOf()</code>：从数组的开头（位置 0）开始向后查找，在没找到的情况下返回-1。</li>
+<li><code>forEach()</code>：遍历的数组内容，第对应的数组索引，数组本身</li>
+<li><code>map()</code>：方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值，不会改变原数组。</li>
+<li><code>filter()</code>：“过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。</li>
+<li><code>every()</code>：判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回 true。</li>
+<li><code>some()</code>：判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回 true。</li>
+<li><code>includes()</code>：方法用来判断一个数组是否包含一个指定的值，如果是返回 true，否则 false。</li>
+<li><code>reduce(前一个值，当前值，项的索引，数组对象)</code>：方法从数组的第一项开始，逐个遍历到最后</li>
+<li><code>Array.keys()</code>是对键名的遍历、<code>Array.values()</code>是对键值的遍历，<code>Array.entries()</code>是对键值对的遍历</li>
+</ol>
+<h1 id="6、map和forEach的区别"><a href="#6、map和forEach的区别" class="headerlink" title="6、map和forEach的区别"></a>6、map和forEach的区别</h1><ol>
+<li>map的速度比forEach快</li>
+<li>map会返回一个新数组，不对原数组产生影响，forEach不会产生新数组，返回的是<code>undefined</code></li>
+<li>map因为返回数组所以可以链式操作，forEach不能</li>
+<li>map里可以用return（return的是什么，相当于把数组中的这一项变为什么（并不影响原来的数组，只是相当于把原数组克隆一份，把克隆的这一份的数组中的对应项改变了） ,而forEach里用return不起作用，forEach不能用break，会直接报错;</li>
+</ol>
+<h1 id="7、var-let-const的区别"><a href="#7、var-let-const的区别" class="headerlink" title="7、var let const的区别"></a>7、var let const的区别</h1><ol>
+<li>var存在变量提升而let和const不存在</li>
+<li>var定义的变量可以声明多次，let和const不可以</li>
+<li>var、let声明的变量可以再次赋值，而const声明的变量不能再次赋值(注意常量里面所包含的内容还是可以改的);</li>
+<li>var声明的变量没有自身的作用域，而ler、const声明的变量有自身的作用域</li>
+</ol>
+<h1 id="8、对this的理解以及改变this的方法"><a href="#8、对this的理解以及改变this的方法" class="headerlink" title="8、对this的理解以及改变this的方法"></a>8、对this的理解以及改变this的方法</h1><ol>
+<li>this永远指向函数运行时所在的对象</li>
+<li><code>call()</code>：第一个参数表示要把this指向的新目标，第二个之后的参数其实相当于传参，参数以逗号隔开</li>
+<li><code>apply()</code>：第一个参数同上，第二个参数接受一个数组，里面也是传参，只是以数组的方式，相当于arguments;</li>
+<li><code>bind()</code>：方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，</li>
+</ol>
+<p>传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数(返回对应函数，便于稍后执行，上两个立即执行)；</p>
+<h2 id="9、Map对象和普通对象有啥区别"><a href="#9、Map对象和普通对象有啥区别" class="headerlink" title="9、Map对象和普通对象有啥区别"></a>9、Map对象和普通对象有啥区别</h2><ol>
+<li>普通对象可以直接使用字面量初始化，而Map需要Man()构造函数初始化，如果想要初始值，则需要传递一个数组或其他元素为键值的可迭代对象</li>
+<li>普通对象只接字符串和符号作为键值，其他类型将被强制转换为字符串类型，而Map可以接受任何类型的键值；</li>
+<li>普通对象从原型继承了许多属性键，例如构造函数等，所以自己的密钥很可能与原型上的密钥发生冲突。但Map默认不包含任何键；</li>
+<li>普通对象不能直接迭代;</li>
+<li>普通对象支持JSON序列化，但Map默认无法获取正确的数据</li>
+<li>Map对象在涉及频繁添加和删除键值对的场景中表现更好，而普通对象没有优化；</li>
+</ol>
+<h2 id="19、普通函数和箭头函数的区别？箭头函数如何获取arguments"><a href="#19、普通函数和箭头函数的区别？箭头函数如何获取arguments" class="headerlink" title="19、普通函数和箭头函数的区别？箭头函数如何获取arguments"></a>19、普通函数和箭头函数的区别？箭头函数如何获取arguments</h2><ol>
+<li>箭头函数没有自己的this、arguments、super或new.target</li>
+<li>它的this、arguments都是在 定义函数式绑定外层的this和arguments，而不是在执行过程中绑定的，所以不会 因为调用者不同而发生变化</li>
+<li>箭头函数若想得到自身的入参列表arguments，博旭使用剩余参数表示法</li>
+<li>箭头函数表达式更适用于哪些本来需要匿名函数的地方，并且它不能用作构造函数</li>
+</ol>
+<h2 id="20、new的过程"><a href="#20、new的过程" class="headerlink" title="20、new的过程"></a>20、new的过程</h2><ol>
+<li>首先创建一个空对象</li>
+<li>将空对象指向构造函数的 原型链</li>
+<li>将this绑定给空对象，并执行构造函数</li>
+<li>返回构造函数的值或者this</li>
+</ol>
+<h2 id="21、JS-数据类型"><a href="#21、JS-数据类型" class="headerlink" title="21、JS 数据类型"></a>21、JS 数据类型</h2><p>基本类型：Number、Boolean、String、null、undefined、symbol（ES6 新增的），BigInt（ES2020） 引用类型：Object，对象子类型（Array，Function）</p>
+<h2 id="22、Number-的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办"><a href="#22、Number-的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办" class="headerlink" title="22、Number() 的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办"></a>22、Number() 的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办</h2><p>Math.pow(2,53)，53为有效数字，会发生截断，等于js能支持的最大数字</p>
+<h2 id="23、实现函数能够深度克隆基本类型"><a href="#23、实现函数能够深度克隆基本类型" class="headerlink" title="23、实现函数能够深度克隆基本类型"></a>23、实现函数能够深度克隆基本类型</h2><h4 id="浅拷贝："><a href="#浅拷贝：" class="headerlink" title="浅拷贝："></a>浅拷贝：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">shallowClone</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> cloneObj = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    cloneObj[i] = obj[i]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cloneObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ol>
+<li>考虑基础类型</li>
+<li>引用类型<br>  RegExp、Date、函数 不是 JSON 安全的<br>  会丢失 constructor，所有的构造函数都指向 Object<br>  破解循环引用<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">deepCopy</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> result = obj.<span class="property">constructor</span> === <span class="title class_">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      result[i] = <span class="keyword">typeof</span> obj[i] === <span class="string">&#x27;object&#x27;</span> ? <span class="title function_">deepCopy</span>(obj[i]) : obj[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = obj;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="24、介绍几种常见的状态码"><a href="#24、介绍几种常见的状态码" class="headerlink" title="24、介绍几种常见的状态码"></a>24、介绍几种常见的状态码</h2><p>200系列<br>200：表示请求已成功，请求所希望的响应头或数据体将随响应返回<br>201：表示请求成功并且服务器创建了新的资源，且其URL已经随location头信息返回</p>
+<p>300系列<br>301：代表需要客户端采取进一步操作才能完成请求，这些状态码用来重定向，后续的请求地址，在本次location域中指明<br>302：请求的资源临时从不同的URL相应请求，但请求者应继续使用原有为止来进行以后的请求<br>304：自从上次请求后，请求的网页未修改过，服务器返回此响应时，不会返回网页内容</p>
+<p>400系列<br>401：请求需要身份验证。对于需要登录的网页，服务器可能需要返回此响应<br>403：服务器已经理解请求，但是拒绝执行它，与401响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该重复被提交<br>404：请求失败，请求的资源在服务器上未被发现</p>
+<p>500系列<br>500：服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理<br>503：由于临时的服务器维护或者过载，服务器当前无法处理请求</p>
+<h2 id="25、手写-bind、apply、call"><a href="#25、手写-bind、apply、call" class="headerlink" title="25、手写 bind、apply、call"></a>25、手写 bind、apply、call</h2><p>call</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">call</span> = <span class="keyword">function</span>(<span class="params">context, ...arg</span>) &#123;</span><br><span class="line">  context = context || <span class="variable language_">window</span>;</span><br><span class="line">  <span class="keyword">const</span> fnSymbol = <span class="title class_">Symbol</span>(<span class="string">&#x27;fn&#x27;</span>)</span><br><span class="line">  context[fnSymbol] = <span class="variable language_">this</span>;</span><br><span class="line">  context[fnSymbol](...arg)</span><br><span class="line">  <span class="keyword">delete</span> <span class="title function_">context</span>(fnSymbol)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>apply</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">apply</span> = <span class="keyword">function</span> (<span class="params">context, argsArr</span>) &#123;</span><br><span class="line">  context = context || <span class="variable language_">window</span>;</span><br><span class="line">  <span class="keyword">const</span> fnSymbol = <span class="title class_">Symbol</span>(<span class="string">&#x27;fn&#x27;</span>);</span><br><span class="line">  context[fnSymbol] = <span class="variable language_">this</span>;</span><br><span class="line"></span><br><span class="line">  context[fnSymbol](...argsArr);</span><br><span class="line">  <span class="keyword">delete</span> context[fnSymbol];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/8ae780ab.html" rel="prev" title="react-hooks">
+                  <i class="fa fa-chevron-left"></i> react-hooks
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林深</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">34k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:03</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
