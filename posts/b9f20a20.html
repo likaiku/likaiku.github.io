@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   
   
-  <title>http | 林深时见鹿</title>
+  <title>webpack | 林深时见鹿</title>
   <meta name="author" content="林深" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -14,19 +14,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="面试题系列" />
+    <meta name="keywords" content="" />
   
-  <meta name="description" content="http和https1.http和https基本概念http: 是一个客户端和服务器端请求和应答标准（TCP），用于从www服务器传输超文本到本地浏览器的超本文传输协议。 https: 是安全为目标的http通道，即http下加入SSL层进行加密。其作用是：建立一个信息安全通道，来确保数据的传输，确保网站的真实性。">
+  <meta name="description" content="webpackwebpack简介webpack是一个用于现代JavaScript应用程序的静态模块打包工具。我们可以使用webpack管理模块。因为在webpack看来，项目中的所有资源皆为模块，通过分析模块间的依赖关系，在其内部构建出一个依赖图，最终编译输出为HTML、JavaScript、CSS以及各种静态文件（图片、字体），让我们开发的过程更加高效。 webpack的主要作用：  模块打包：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="http">
-<meta property="og:url" content="https://likaiku.github.io/posts/97780db2.html">
+<meta property="og:title" content="webpack">
+<meta property="og:url" content="https://likaiku.github.io/posts/b9f20a20.html">
 <meta property="og:site_name" content="林深时见鹿">
-<meta property="og:description" content="http和https1.http和https基本概念http: 是一个客户端和服务器端请求和应答标准（TCP），用于从www服务器传输超文本到本地浏览器的超本文传输协议。 https: 是安全为目标的http通道，即http下加入SSL层进行加密。其作用是：建立一个信息安全通道，来确保数据的传输，确保网站的真实性。">
+<meta property="og:description" content="webpackwebpack简介webpack是一个用于现代JavaScript应用程序的静态模块打包工具。我们可以使用webpack管理模块。因为在webpack看来，项目中的所有资源皆为模块，通过分析模块间的依赖关系，在其内部构建出一个依赖图，最终编译输出为HTML、JavaScript、CSS以及各种静态文件（图片、字体），让我们开发的过程更加高效。 webpack的主要作用：  模块打包：">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-23T14:43:32.000Z">
-<meta property="article:modified_time" content="2024-01-04T13:14:50.774Z">
+<meta property="article:published_time" content="2023-07-17T12:51:15.000Z">
+<meta property="article:modified_time" content="2024-01-04T13:14:37.837Z">
 <meta property="article:author" content="林深">
-<meta property="article:tag" content="面试题系列">
 <meta name="twitter:card" content="summary">
   
   <!-- 站点验证相关 -->
@@ -156,15 +155,15 @@
 
             <article itemscope itemtype="https://schema.org/Article">
     
-    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/97780db2.html">
+    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/b9f20a20.html">
     <div class="kratos-hentry kratos-post-inner clearfix">
         <header class="kratos-entry-header">
             
-                <h1 class="kratos-entry-title text-center" itemprop="name headline">http</h1>
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">webpack</h1>
             
             
             <ul class="kratos-post-meta text-center">
-                <li><time datetime="2023-03-23T14:43:32.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-03-23</time></li>
+                <li><time datetime="2023-07-17T12:51:15.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2023-07-17</time></li>
                 <li itemprop="author" itemscope itemtype="https://schema.org/Person">
                     <i class="fa fa-user"></i> 作者 <span itemprop="name">林深</span>
                 </li>
@@ -172,7 +171,7 @@
                     <i class="fa fa-edit"></i> 
                     
                     
-                        715
+                        ~2.25K
                     
                     字
                 </li>
@@ -183,32 +182,49 @@
             
             <div id="expire-alert" class="alert alert-warning hidden" role="alert">
                 <div class="icon"><i class="fa fa-warning"></i></div>
-                <div class="text"><p>本文最后编辑于 <time datetime="1704374090774"></time> 前，其中的内容可能需要更新。</p></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1704374077837"></time> 前，其中的内容可能需要更新。</p></div>
             </div>
             
             
             
             <hr />
-            <div itemprop="articleBody"><h1 id="http和https"><a href="#http和https" class="headerlink" title="http和https"></a>http和https</h1><h2 id="1-http和https基本概念"><a href="#1-http和https基本概念" class="headerlink" title="1.http和https基本概念"></a>1.http和https基本概念</h2><p>http: 是一个客户端和服务器端请求和应答标准（TCP），用于从<code>www</code>服务器传输超文本到本地浏览器的超本文传输协议。</p>
-<p>https: 是安全为目标的<code>http</code>通道，即<code>http</code>下加入<code>SSL</code>层进行加密。其作用是：建立一个信息安全通道，来确保数据的传输，确保网站的真实性。</p>
-<span id="more"></span>
-<h2 id="2-http和https区别及优缺点"><a href="#2-http和https区别及优缺点" class="headerlink" title="2.http和https区别及优缺点"></a>2.http和https区别及优缺点</h2><ul>
-<li>http是超文本传输协议，信息是明文传输，https协议比http协议安全，https是具有安全性的ssl加密传输协议，可防止数据在传输过程中被窃取、改变。确保数据的完整性</li>
-<li>http协议的默认端口是80，https的默认端口是443</li>
-<li>http的链接很简单，是无状态的。https的握手阶段比较费时，会使页面加载时间延长50%，增加10%~20%的耗电</li>
-<li>https的缓存不如http高效，会增加数据开销</li>
-<li>https需要ca证书，费用较高，功能越强大的证书费用越高</li>
-<li>SSL证书需要绑定IP，不能再同一个 IP 上绑定多个域名，IPV4 资源支持不了这种消耗。</li>
+            <div itemprop="articleBody"><h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><p>webpack是一个用于现代JavaScript应用程序的<code>静态模块打包工具</code>。我们可以使用webpack管理模块。因为在webpack看来，项目中的所有资源皆为模块，通过分析模块间的依赖关系，在其内部构建出一个依赖图，最终编译输出为HTML、JavaScript、CSS以及各种静态文件（图片、字体），让我们开发的过程更加高效。</p>
+<p>webpack的主要作用：</p>
+<ul>
+<li>模块打包：可以将不同模块的文件打包整合在一起，并且保证他们之间的引用正确，执行有序。利用打包我们就可以在开发的时候根据我们自己的业务自由划分文件模块，保证项目结构的清晰和可读性</li>
+<li>编译兼容”前端的“上古时期”，手写一堆浏览器兼容代码一直是令前端工程师头皮发麻的事情，而在今天这个问题被大大的弱化了，通过webpack的Loader机制，不仅仅可以帮助我们对代码做polyfill，还可以编译转换诸如.less，.vue，.jsx这类在浏览器无法识别的格式文件，让我们在开发的时候可以使用新特性和新语法做开发，提高开发效率。</li>
+<li>能力扩展：通过webpack的Plugin机制，我们在实现模块化打包和编译兼容的基础上，可以进一步实现诸如按需加载，代码压缩等一系列功能，帮助我们进一步提高自动化程度，工程效率以及打包输出的质量。</li>
 </ul>
-<h2 id="3-https-协议的工作原理"><a href="#3-https-协议的工作原理" class="headerlink" title="3.https 协议的工作原理"></a>3.https 协议的工作原理</h2><p>  客户端在使用https方式与web服务器通信时有以下几个步骤：</p>
-<ol>
-<li>客户端使用https url访问服务器，则要求web服务器建立ssl链接</li>
-<li>web服务器在接收到客户端的请求后，会将网站证书（证书中包含公钥）传输给客户端</li>
-<li>客户端和web服务器端开始协商ssl链接的安全等级,也就是加密等级</li>
-<li>客户端浏览器通过上访协商一致的安全等级，建立会话秘钥，然后通过网站的公钥来加密会话秘钥，并传送给网站</li>
-<li>web服务器通过自己的私钥解密出会话秘钥</li>
-<li>web服务器通过会话秘钥加密客户端之间的通信</li>
-</ol>
+<h2 id="webpack构建流程"><a href="#webpack构建流程" class="headerlink" title="webpack构建流程"></a>webpack构建流程</h2><p>webpack的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：</p>
+<ul>
+<li>初始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数</li>
+<li>开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译</li>
+<li>确定入口：根据配置中的 entry 找出所有的入口文件</li>
+<li>编译模块：从入口文件出发，调用所有配置的 loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理</li>
+<li>完成模块编译：在经过上一步使用 loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系</li>
+<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会</li>
+<li>输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统</li>
+</ul>
+<h2 id="常见的loader"><a href="#常见的loader" class="headerlink" title="常见的loader"></a>常见的loader</h2><ul>
+<li>image-loader：加载并且压缩图片文件。</li>
+<li>less-loader： 加载并编译 LESS 文件。</li>
+<li>sass-loader：加载并编译 SASS&#x2F;SCSS 文件。</li>
+<li>css-loader：加载 CSS，支持模块化、压缩、文件导入等特性，使用css-loader必须要配合使用+ style-loader。</li>
+<li>style-loader：用于将 CSS 编译完成的样式，挂载到页面的 style 标签上。需要注意 loader 执行顺序，+ style-loader 要放在第一位，loader 都是从后往前执行。</li>
+<li>babel-loader：把 ES6 转换成 ES5</li>
+<li>postcss-loader：扩展 CSS 语法，使用下一代 CSS，可以配合 autoprefixer 插件自动补齐 CSS3 前缀。</li>
+<li>eslint-loader：通过 ESLint 检查 JavaScript 代码。</li>
+<li>vue-loader：加载并编译 Vue 组件。</li>
+<li>file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件 (处理图片和字体)</li>
+<li>url-loader：与 file-loader 类似，区别是用户可以设置一个阈值，大于阈值会交给 file-loader 处理，小于阈值时返回文件 base64 形式编码 (处理图片和字体)<br><a target="_blank" rel="noopener" href="https://www.webpackjs.com/loaders/">更多loader</a></li>
+</ul>
+<h2 id="常见的plugin"><a href="#常见的plugin" class="headerlink" title="常见的plugin"></a>常见的plugin</h2><p>webpack中的plugin赋予其各种灵活的功能，例如打包优化、资源管理、环境变量注入等，它们会运行在webpack的不同阶段（钩子 &#x2F; 生命周期），贯穿了webpack整个编译周期。目的在于解决 loader 无法实现的其他事。<br>常用的plugin如下：</p>
+<ul>
+<li>HtmlWebpackPlugin：简化 HTML 文件创建 (依赖于 html-loader)</li>
+<li>mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代extract-text-webpack-plugin)</li>
+<li>clean-webpack-plugin: 目录清理<br><a target="_blank" rel="noopener" href="https://www.webpackjs.com/plugins/">更多plugin</a></li>
+</ul>
+<h2 id="loader和plugin的区别"><a href="#loader和plugin的区别" class="headerlink" title="loader和plugin的区别"></a>loader和plugin的区别</h2><p>loader是文件加载器，能够加载资源文件，并对这些文件进行一些处理，诸如编译、压缩等，最终一起打包到指定的文件中；plugin赋予了webpack各种灵活的功能，例如打包优化、资源管理、环境变量注入等，目的是解决 loader无法实现的其他事。<br>在运行时机上，loader 运行在打包文件之前；plugin则是在整个编译周期都起作用。<br>在配置上，loader在module.rules中配置，作为模块的解析规则，类型为数组。每一项都是一个 Object，内部包含了 test(类型文件)、loader、options (参数)等属性；plugin在 plugins中单独配置，类型为数组，每一项是一个 plugin 的实例，参数都通过构造函数传入。</p>
 </div>
         </div>
         
@@ -262,7 +278,7 @@
     <script type="text/javascript">
         $(()=>{
             new QRCode("wechat-qr", {
-                text: "https://likaiku.github.io/posts/97780db2.html",
+                text: "https://likaiku.github.io/posts/b9f20a20.html",
                 width: 150,
                 height: 150,
                 correctLevel : QRCode.CorrectLevel.H
@@ -274,10 +290,9 @@
             const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
             const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
             const twitterBase   = "https://twitter.com/intent/tweet?";
-            const hostUrl       = "https://likaiku.github.io/posts/97780db2.html";
-            const title         = "「http」";
-            const excerpt       = `http和https1.http和https基本概念http: 是一个客户端和服务器端请求和应答标准（TCP），用于从www服务器传输超文本到本地浏览器的超本文传输协议。
-https: 是安全为目标的http通道，即http下加入SSL层进行加密。其作用是：建立一个信息安全通道，来确保数据的传输，确保网站的真实性。`;
+            const hostUrl       = "https://likaiku.github.io/posts/b9f20a20.html";
+            const title         = "「webpack」";
+            const excerpt       = `webpackwebpack简介webpack是一个用于现代JavaScript应用程序的静态模块打包工具。我们可以使用webpack管理模块。因为在webpack看来，项目中的所有资源皆为模块，通过分析模块间的依赖关系，在其内部构建...`;
             let _URL;
             switch (dest) {
                 case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
@@ -296,10 +311,10 @@ https: 是安全为目标的http通道，即http下加入SSL层进行加密。�
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97/" rel="tag">面试题系列</a>
+                    
                 </div>
                 <div class="pull-date">
-                    <time datetime="2024-01-04T13:14:50.774Z" itemprop="dateModified">最后编辑：2024-01-04</time>
+                    <time datetime="2024-01-04T13:14:37.837Z" itemprop="dateModified">最后编辑：2024-01-04</time>
                 </div>
             </div>
         </footer>
@@ -308,12 +323,12 @@ https: 是安全为目标的http通道，即http下加入SSL层进行加密。�
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" 函数式编程范式" href="/posts/42f6abb3.html">&lt; 上一篇</a>
+                <a title=" 网络篇" href="/posts/608487bc.html">&lt; 上一篇</a>
             </div>
             
             
             <div class="nav-next clearfix">
-                <a title=" lerna搭建脚手架遇到的问题记录" href="/posts/d1b186b.html">下一篇 &gt;</a>
+                <a title=" go搭建web项目（一）" href="/posts/e1a1e4cd.html">下一篇 &gt;</a>
             </div>
             
         </nav>
