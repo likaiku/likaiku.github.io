@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+  
+  <title>使用midway搭建web服务（一） | 林深时见鹿</title>
+  <meta name="author" content="林深" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="node系列" />
+  
+  <meta name="description" content="简介Midway 是阿里巴巴 - 淘宝前端架构团队，基于渐进式理念研发的 Node.js 框架，通过自研的依赖注入容器，搭配各种上层模块，组合出适用于不同场景的解决方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用midway搭建web服务（一）">
+<meta property="og:url" content="https://likaiku.github.io/posts/249a86f3.html">
+<meta property="og:site_name" content="林深时见鹿">
+<meta property="og:description" content="简介Midway 是阿里巴巴 - 淘宝前端架构团队，基于渐进式理念研发的 Node.js 框架，通过自研的依赖注入容器，搭配各种上层模块，组合出适用于不同场景的解决方案。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-01-05T14:26:30.000Z">
+<meta property="article:modified_time" content="2024-01-06T03:05:50.315Z">
+<meta property="article:author" content="林深">
+<meta property="article:tag" content="node系列">
+<meta name="twitter:card" content="summary">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" media="all"></script>
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-color-dark.min.css" media="(prefers-color-scheme: dark)"></script>
+    <script src="/js/kr-dark.min.js"></script>
+  
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/night-eighties.min.css" media="all"></script>
+  
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></script>
+  <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/aplayer@1.10.1/dist/APlayer.min.css"></script>
+  
+  
+    <link rel="stylesheet" href="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="/vendors/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="/vendors/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+  
+  <style>
+    
+    
+  </style>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li>
+                                            
+                                                <a href="/">
+                                            
+                                                
+                                                    <i class="fa fa-home"></i>
+                                                
+                                                首页
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/categories/">
+                                            
+                                                
+                                                    <i class="fa fa-paw"></i>
+                                                
+                                                分类
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="/archives/">
+                                            
+                                                
+                                                    <i class="fa fa-file"></i>
+                                                
+                                                档案馆
+                                            </a>
+                                            
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">林深时见鹿</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>林深时见鹿</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        
+
+            <section class="col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    
+    <link itemprop="mainEntityOfPage" href="https://likaiku.github.io/posts/249a86f3.html">
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <header class="kratos-entry-header">
+            
+                <h1 class="kratos-entry-title text-center" itemprop="name headline">使用midway搭建web服务（一）</h1>
+            
+            
+            <ul class="kratos-post-meta text-center">
+                <li><time datetime="2024-01-05T14:26:30.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2024-01-05</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">林深</span>
+                </li>
+                <li>
+                    <i class="fa fa-edit"></i> 
+                    
+                    
+                        ~8.61K
+                    
+                    字
+                </li>
+                
+            </ul>
+        </header>
+        <div class="kratos-post-content">
+            
+            <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                <div class="icon"><i class="fa fa-warning"></i></div>
+                <div class="text"><p>本文最后编辑于 <time datetime="1704510350315"></time> 前，其中的内容可能需要更新。</p></div>
+            </div>
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Midway 是阿里巴巴 - 淘宝前端架构团队，基于渐进式理念研发的 Node.js 框架，通过自研的依赖注入容器，搭配各种上层模块，组合出适用于不同场景的解决方案。</p>
+<span id="more"></span>
+
+<p>Midway 基于 TypeScript 开发，结合了面向对象（OOP + Class + IoC）与函数式（FP + Function + Hooks）两种编程范式，并在此之上支持了 Web &#x2F; 全栈 &#x2F; 微服务 &#x2F; RPC &#x2F; Socket &#x2F; Serverless 等多种场景，致力于为用户提供简单、易用、可靠的 Node.js 服务端研发体验。<br><a target="_blank" rel="noopener" href="https://www.midwayjs.org/docs/intro">官网链接</a></p>
+<h1 id="上手难度"><a href="#上手难度" class="headerlink" title="上手难度"></a>上手难度</h1><ul>
+<li>懂Nodejs技术的前端开发；</li>
+<li>TypeScript的前端开发；</li>
+</ul>
+<h1 id="项目环境准备"><a href="#项目环境准备" class="headerlink" title="项目环境准备"></a>项目环境准备</h1><ul>
+<li>Nodejs 12+</li>
+<li>Npm 8+</li>
+<li>MySql 5+</li>
+<li>Redis</li>
+</ul>
+<h1 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h1><p>我们这里使用的是 <code>webstorm</code></p>
+<h1 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init midway</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行命令后，选择模版，这里我们选择<code>koa3</code></li>
+<li>项目名称为<code>service-web</code></li>
+<li>等项目初始化完成后执行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn dev</span><br></pre></td></tr></table></figure>
+<p>然后打开浏览器访问<code>http://127.0.0.1:7001</code></p>
+<h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">├─src                     # 源码目录</span><br><span class="line">│  ├─config               # 配置</span><br><span class="line">│  ├─controller           # 控制器</span><br><span class="line">│  ├─entity               # 数据对象模型</span><br><span class="line">│  ├─filter               # 过滤器</span><br><span class="line">│  ├─middleware           # 中间件</span><br><span class="line">│  ├─service              # 服务类</span><br><span class="line">│  ├─configurations.ts    # 服务生命周期管理及配置</span><br><span class="line">│  └─interface.ts         # 接口定义</span><br><span class="line">├─test                    # 测试类目录</span><br><span class="line">├─bootstrap.js            # 启动入口</span><br><span class="line">├─package.json            # 包管理配置</span><br><span class="line">├─tsconfig.json           # TypeScript 编译配置文件</span><br></pre></td></tr></table></figure>
+<h1 id="TypeORM"><a href="#TypeORM" class="headerlink" title="TypeORM"></a>TypeORM</h1><p>TypeORM 是一个支持多种数据库的 TypeScript（也可以使用 JavaScript）对象关系映射（ORM）库。它提供了一种方便的方式来进行数据库操作，包括创建表、插入、更新和查询数据等。TypeORM 可以与多种数据库系统集成，例如 MySQL、PostgreSQL、SQLite、Microsoft SQL Server 等。</p>
+<p>使用 TypeORM，可以通过定义实体（Entities）来映射数据库表，定义实体属性（Columns）来映射表的列，还可以定义关系（Relationships）来建立表之间的关联。TypeORM 还提供了丰富的查询，可以进行复杂的查询操作，并支持事务、连接池等高级功能。</p>
+<p><a target="_blank" rel="noopener" href="http://www.midwayjs.org/docs/extensions/orm">orm文档链接</a></p>
+<h2 id="安装TypeORM"><a href="#安装TypeORM" class="headerlink" title="安装TypeORM"></a>安装TypeORM</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add  @midwayjs/orm@3 typeorm --save</span><br></pre></td></tr></table></figure>
+<h2 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h2><p>安装完成后在<code>src/configuration.ts</code>中引入组件</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Configuration</span>, <span class="title class_">App</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> koa <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/koa&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> validate <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/validate&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> info <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/info&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> orm <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/orm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; join &#125; <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>;</span><br><span class="line"><span class="comment">// import &#123; DefaultErrorFilter &#125; from &#x27;./filter/default.filter&#x27;;</span></span><br><span class="line"><span class="comment">// import &#123; NotFoundFilter &#125; from &#x27;./filter/notfound.filter&#x27;;</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ReportMiddleware</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./middleware/report.middleware&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    orm,</span><br><span class="line">    koa,</span><br><span class="line">    validate,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">component</span>: info,</span><br><span class="line">      <span class="attr">enabledEnvironment</span>: [<span class="string">&#x27;local&#x27;</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">importConfigs</span>: [<span class="title function_">join</span>(__dirname, <span class="string">&#x27;./config&#x27;</span>)],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MainConfiguration</span> &#123;</span><br><span class="line">  <span class="meta">@App</span>(<span class="string">&#x27;koa&#x27;</span>)</span><br><span class="line">  <span class="attr">app</span>: koa.<span class="property">Application</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="title function_">onReady</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// add middleware</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">app</span>.<span class="title function_">useMiddleware</span>([<span class="title class_">ReportMiddleware</span>]);</span><br><span class="line">    <span class="comment">// add filter</span></span><br><span class="line">    <span class="comment">// this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="添加数据库配置"><a href="#添加数据库配置" class="headerlink" title="添加数据库配置"></a>添加数据库配置</h2><p>在<code>src/config/config.default.ts</code>中添加</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MidwayConfig</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// use for cookie sign key, should change to your own and keep security</span></span><br><span class="line">  <span class="attr">keys</span>: <span class="string">&#x27;1704465529391_6300&#x27;</span>,</span><br><span class="line">  <span class="attr">koa</span>: &#123;</span><br><span class="line">    <span class="attr">port</span>: <span class="number">7001</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 添加orm配置</span></span><br><span class="line">  <span class="attr">orm</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;mysql&#x27;</span>,</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="comment">// 的mysql数据库IP</span></span><br><span class="line">    <span class="attr">port</span>: <span class="number">3306</span>, <span class="comment">// mysql数据库端口</span></span><br><span class="line">    <span class="attr">username</span>: <span class="string">&#x27;root&#x27;</span>, <span class="comment">// mysql数据库用户名（需要有创建表结构权限）</span></span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;123456&#x27;</span>, <span class="comment">// mysql数据库密码</span></span><br><span class="line">    <span class="attr">database</span>: <span class="string">&#x27;service-web&#x27;</span>, <span class="comment">// mysql数据库IP</span></span><br><span class="line">    <span class="attr">synchronize</span>: <span class="literal">true</span>, <span class="comment">// 如果第一次使用，不存在表，有同步的需求可以写 true</span></span><br><span class="line">    <span class="attr">logging</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125; <span class="keyword">as</span> <span class="title class_">MidwayConfig</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add  mysql2 --save</span><br></pre></td></tr></table></figure>
+<p>安装完成后，接下来就可以进行数据库对象模型编写了</p>
+<h1 id="对象模型"><a href="#对象模型" class="headerlink" title="对象模型"></a>对象模型</h1><p>我们需要再<code>entity</code>这个文件夹下新建一个<code>user.entity.ts</code>文件<br>下面列一下我们用到的几个类</p>
+<ul>
+<li>@EntityModel 用来定义一个实体类；</li>
+<li>@Column 用来描述类的一个熟悉，对应数据库就是一个数据列；</li>
+<li>@PrimaryColumn 用来定义一个主键，每个实体类必须要要主键；</li>
+<li>@PrimaryGeneratedColumn 用来定义一个自增主键；</li>
+<li>@CreateDateColumn 定义创建时，自动设置日期；</li>
+<li>@UpdateDateColumn 定义更新时，自动设置日期；<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">EntityModel</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/orm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Column</span>,</span><br><span class="line">  <span class="title class_">CreateDateColumn</span>,</span><br><span class="line">  <span class="title class_">PrimaryColumn</span>,</span><br><span class="line">  <span class="title class_">UpdateDateColumn</span>,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EntityModel</span>(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserModel</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryColumn</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;bigint&#x27;</span>, <span class="attr">comment</span>: <span class="string">&#x27;用户id&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">userId</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;用户名&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">username</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;密码&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">password</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;昵称&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">nickName</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;头像&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">avatar</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;角色&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">role</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;状态&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">status</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;手机号&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">phone</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;创建时间&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">createTime</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>(&#123; <span class="attr">comment</span>: <span class="string">&#x27;更新时间&#x27;</span> &#125;)</span><br><span class="line">  <span class="attr">updateTime</span>: <span class="title class_">Date</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="修改user-service-ts"><a href="#修改user-service-ts" class="headerlink" title="修改user.service.ts"></a>修改user.service.ts</h1><p>首先我们在src下新增api文件，在api文件下新增dto和vo文件<br>在dto文件下新增user.ts，该文件用来做入参类型定义和参数校验</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/api/dto/user.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Rule</span>, <span class="title class_">RuleType</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/validate&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建用户入参及校验</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CreateUserForms</span> &#123;</span><br><span class="line">	<span class="meta">@Rule</span>(</span><br><span class="line">		<span class="title class_">RuleType</span>.<span class="title function_">string</span>()</span><br><span class="line">			.required()</span><br><span class="line">			.<span class="title function_">min</span>(<span class="number">6</span>)</span><br><span class="line">			.<span class="title function_">max</span>(<span class="number">16</span>)</span><br><span class="line">			.<span class="title function_">error</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;用户名长度在6-16位之间&#x27;</span>))</span><br><span class="line">	)</span><br><span class="line">	<span class="attr">username</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="meta">@Rule</span>(</span><br><span class="line">		<span class="title class_">RuleType</span>.<span class="title function_">string</span>()</span><br><span class="line">			.required()</span><br><span class="line">			.<span class="title function_">min</span>(<span class="number">6</span>)</span><br><span class="line">			.<span class="title function_">max</span>(<span class="number">16</span>)</span><br><span class="line">			.<span class="title function_">error</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;密码长度在6-16位之间&#x27;</span>))</span><br><span class="line">	)</span><br><span class="line">	<span class="attr">password</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="meta">@Rule</span>(<span class="title class_">RuleType</span>.<span class="title function_">string</span>().required().<span class="title function_">error</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;昵称不能为空&#x27;</span>)))</span><br><span class="line">	<span class="attr">nickName</span>: <span class="built_in">string</span>;</span><br><span class="line">	<span class="meta">@Rule</span>(</span><br><span class="line">		<span class="title class_">RuleType</span>.<span class="title function_">string</span>()</span><br><span class="line">			.required()</span><br><span class="line">			.<span class="title function_">pattern</span>(<span class="regexp">/^1[3456789]\d&#123;9&#125;$/</span>)</span><br><span class="line">			.<span class="title function_">error</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;手机号格式不正确或不能为空&#x27;</span>))</span><br><span class="line">	)</span><br><span class="line">	<span class="attr">phone</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在vo文件下定义返回的数据类型</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  src/api/vo/user.ts</span></span><br><span class="line"><span class="comment">// 用户基本信息</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserInfo</span> &#123;</span><br><span class="line">	<span class="attr">userId</span>: <span class="built_in">number</span>; <span class="comment">// 用户ID</span></span><br><span class="line">	<span class="attr">userName</span>: <span class="built_in">string</span>; <span class="comment">// 用户名</span></span><br><span class="line">	<span class="attr">nickName</span>: <span class="built_in">string</span>; <span class="comment">// 昵称</span></span><br><span class="line">	<span class="attr">avatar</span>: <span class="built_in">string</span>; <span class="comment">// 头像</span></span><br><span class="line">	<span class="attr">role</span>: <span class="built_in">string</span>; <span class="comment">// 角色</span></span><br><span class="line">	<span class="attr">status</span>: <span class="built_in">number</span>; <span class="comment">// 状态</span></span><br><span class="line">	<span class="attr">phone</span>: <span class="built_in">string</span>; <span class="comment">// 手机号</span></span><br><span class="line">	<span class="attr">createTime</span>: <span class="title class_">Date</span>; <span class="comment">// 创建时间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在user.service.ts中新增</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Provide</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">InjectEntityModel</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/orm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Repository</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserModel</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../entity/user.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CreateUserForms</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../api/dto/user&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserInfo</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../api/vo/user&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">DeleteResult</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm/query-builder/result/DeleteResult&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Provide</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">	<span class="meta">@InjectEntityModel</span>(<span class="title class_">UserModel</span>)</span><br><span class="line">	<span class="attr">userModel</span>: <span class="title class_">Repository</span>&lt;<span class="title class_">UserModel</span>&gt;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 创建用户</span></span><br><span class="line">	<span class="keyword">async</span> <span class="title function_">createUser</span>(<span class="attr">options</span>: <span class="title class_">CreateUserForms</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">		<span class="keyword">const</span> params = &#123;</span><br><span class="line">			...options,</span><br><span class="line">			<span class="attr">role</span>: <span class="string">&#x27;ordinary&#x27;</span>,</span><br><span class="line">			<span class="attr">status</span>: <span class="number">1</span>,</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="comment">// 实现创建用户的逻辑</span></span><br><span class="line">		<span class="keyword">const</span> result = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">save</span>(params);</span><br><span class="line">		<span class="keyword">if</span> (result) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">&#x27;创建成功&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;创建失败&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 查找用户</span></span><br><span class="line">	<span class="keyword">async</span> <span class="title function_">findByUser</span>(<span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Promise</span>&lt;<span class="title class_">UserInfo</span> | <span class="built_in">string</span>&gt; &#123;</span><br><span class="line">		<span class="comment">// 实现查找用户的逻辑</span></span><br><span class="line">		<span class="keyword">const</span> result = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">findOne</span>(&#123; <span class="attr">where</span>: &#123; <span class="attr">userId</span>: id &#125; &#125;);</span><br><span class="line">		<span class="keyword">if</span> (!result) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">&#x27;用户不存在&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">const</span> <span class="attr">responseParams</span>: <span class="title class_">UserInfo</span> = &#123;</span><br><span class="line">			<span class="attr">userId</span>: result.<span class="property">userId</span>,</span><br><span class="line">			<span class="attr">userName</span>: result.<span class="property">username</span>,</span><br><span class="line">			<span class="attr">nickName</span>: result.<span class="property">nickName</span>,</span><br><span class="line">			<span class="attr">avatar</span>: result.<span class="property">avatar</span>,</span><br><span class="line">			<span class="attr">role</span>: result.<span class="property">role</span>,</span><br><span class="line">			<span class="attr">status</span>: result.<span class="property">status</span>,</span><br><span class="line">			<span class="attr">phone</span>: result.<span class="property">password</span>,</span><br><span class="line">			<span class="attr">createTime</span>: result.<span class="property">createTime</span>,</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="keyword">return</span> responseParams;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 删除用户</span></span><br><span class="line">	<span class="keyword">async</span> <span class="title function_">deleteUser</span>(<span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">		<span class="keyword">const</span> <span class="attr">result</span>: <span class="title class_">DeleteResult</span> = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">delete</span>(id);</span><br><span class="line">		<span class="keyword">if</span> (result.<span class="property">affected</span> === <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">&#x27;删除失败&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;删除成功&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="在controller文件夹下新增user-controller-ts"><a href="#在controller文件夹下新增user-controller-ts" class="headerlink" title="在controller文件夹下新增user.controller.ts"></a>在controller文件夹下新增user.controller.ts</h1><p>删除<code>controller</code>文件下的<code>api.controller.ts</code>和<code>home.controller.ts</code>文件</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//user.controller.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CreateUserForms</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../api/dto/user&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./../service/user.service&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Body</span>, <span class="title class_">Controller</span>, <span class="title class_">Inject</span>, <span class="title class_">Post</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@midwayjs/decorator&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&#x27;/api/user&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">	<span class="meta">@Inject</span>()</span><br><span class="line">	<span class="attr">userService</span>: <span class="title class_">UserService</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Post</span>(<span class="string">&#x27;/create&#x27;</span>, &#123; <span class="attr">description</span>: <span class="string">&#x27;创建用户&#x27;</span> &#125;)</span><br><span class="line">	<span class="keyword">async</span> <span class="title function_">createUser</span>(<span class="meta">@Body</span>() <span class="attr">params</span>: <span class="title class_">CreateUserForms</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">createUser</span>(params);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Post</span>(<span class="string">&#x27;/findById&#x27;</span>, &#123; <span class="attr">description</span>: <span class="string">&#x27;查找用户&#x27;</span> &#125;)</span><br><span class="line">	<span class="keyword">async</span> <span class="title function_">findByUserInfo</span>(<span class="meta">@Body</span>() <span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">findByUser</span>(id);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Post</span>(<span class="string">&#x27;/delete&#x27;</span>, &#123; <span class="attr">description</span>: <span class="string">&#x27;删除用户&#x27;</span> &#125;)</span><br><span class="line">	<span class="keyword">async</span> <span class="title function_">deleteUser</span>(<span class="meta">@Body</span>(<span class="string">&#x27;id&#x27;</span>) <span class="attr">id</span>: <span class="built_in">number</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">deleteUser</span>(id);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候我们需要在mysql下新建<code>service_web</code>数据库，然后执行<code>yarn dev</code><br>数据库管理工具我这里使用的是<code>DataGrip</code><br>然后使用<code>postman</code>来调试我们写好的接口</p>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <h5 itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</h5>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+                <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                
+                
+                    <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                    <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "https://likaiku.github.io/posts/249a86f3.html",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "https://likaiku.github.io/posts/249a86f3.html";
+            const title         = "「使用midway搭建web服务（一）」";
+            const excerpt       = `简介Midway 是阿里巴巴 - 淘宝前端架构团队，基于渐进式理念研发的 Node.js 框架，通过自研的依赖注入容器，搭配各种上层模块，组合出适用于不同场景的解决方案。`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/node%E7%B3%BB%E5%88%97/" rel="tag">node系列</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2024-01-06T03:05:50.315Z" itemprop="dateModified">最后编辑：2024-01-06</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" go搭建web项目（一）" href="/posts/e1a1e4cd.html">&lt; 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+        
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.webp" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">不积跬步无以至千里</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                20
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                10
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                5
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类目录</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/html-css/">html&css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js%E5%9F%BA%E7%A1%80/">js基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/">react项目配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E7%94%A8/">通用</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a><span class="category-list-count">5</span></li></ul>
+  </aside>
+
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/go%E7%B3%BB%E5%88%97/" style="font-size: 0.6em;">go系列</a> <a href="/tags/node/" style="font-size: 0.6em;">node</a> <a href="/tags/node%E7%B3%BB%E5%88%97/" style="font-size: 0.6em;">node系列</a> <a href="/tags/%E9%80%9A%E7%94%A8/" style="font-size: 0.6em;">通用</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97/" style="font-size: 0.8em;">面试题系列</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/249a86f3.html"><i class="fa  fa-book"></i> 使用midway搭建web服务（一）</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/e1a1e4cd.html"><i class="fa  fa-book"></i> go搭建web项目（一）</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/b9f20a20.html"><i class="fa  fa-book"></i> webpack</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/608487bc.html"><i class="fa  fa-book"></i> 网络篇</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/849a3ae4.html"><i class="fa  fa-book"></i> vscode中settings配置</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        <!-- Keep for compatibility -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- New links -->
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2024 林深时见鹿 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by 林深.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="snow-switch">
+                        <span class="fa fa-snowflake-o"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="/vendors/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+<script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+    <div>
+        <canvas id="snow"></canvas>
+        <script async src="/js/snow.min.js"></script>
+    </div>
+
+
+    <script async src="/js/candy.min.js"></script>
+
+
+
+    <script defer src="/vendors/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="/vendors/meting@2.0.1/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="playlist"
+        id="3204190542"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="/vendors/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>
